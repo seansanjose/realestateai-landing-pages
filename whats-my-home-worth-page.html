@@ -6,15 +6,21 @@
      Google Places (upgrade when key available):
      Restrict key to: Maps JavaScript API + Places API, HTTP referrers only.
 -->
+
+<!-- ─── Google Fonts: Playfair Display + Inter ─── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 #hmw-address-suggestions {
   position: absolute;
   z-index: 9999;
-  background: white;
-  border: 1px solid #dce8f5;
+  background: #FFFFFF;
+  border: 1px solid #D4C5A0;
   border-top: none;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgba(10,10,10,0.12);
   width: 100%;
   max-height: 240px;
   overflow-y: auto;
@@ -23,16 +29,17 @@
 #hmw-address-suggestions .suggestion-item {
   padding: 11px 14px;
   font-size: 14px;
-  color: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+  color: #0A0A0A;
   cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #F0EBE0;
   line-height: 1.4;
 }
 #hmw-address-suggestions .suggestion-item:last-child { border-bottom: none; }
 #hmw-address-suggestions .suggestion-item:hover,
 #hmw-address-suggestions .suggestion-item.active {
-  background: #f0f6ff;
-  color: #1a2e4a;
+  background: #F5F0E6;
+  color: #0A0A0A;
 }
 #hmw-address-wrapper { position: relative; }
 </style>
@@ -186,19 +193,28 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
 <!-- End Facebook Pixel Code -->
 
 <style>
+/* ─── LUXURY BRAND PALETTE ───────────────────────────────────────────
+   Background: #FAF9F6  (Ivory)
+   Primary text: #0A0A0A (Black)
+   Accent: #C9A962      (Gold)
+   Headings: Playfair Display
+   Body: Inter
+   Approved by Sean San Jose — March 2026
+──────────────────────────────────────────────────────────────────── */
+
 /* ===== RESET & BASE ===== */
 #hmw-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
 #hmw-wrapper {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  color: #1a1a1a;
-  background: #f8f8f6;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0A0A0A;
+  background: #FAF9F6;
   padding: 0;
 }
 
 /* ===== HERO SECTION ===== */
 .hmw-hero {
-  background: linear-gradient(135deg, #1a2e4a 0%, #2c4a72 60%, #1e3d6b 100%);
-  color: white;
+  background: #0A0A0A;
+  color: #FAF9F6;
   text-align: center;
   padding: 60px 20px 80px;
   position: relative;
@@ -208,36 +224,41 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 Q75,20 100,10 L100,20 L0,20 Z" fill="rgba(255,255,255,0.04)"/></svg>') repeat-x bottom;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 Q75,20 100,10 L100,20 L0,20 Z" fill="rgba(201,169,98,0.06)"/></svg>') repeat-x bottom;
   background-size: 200px 40px;
 }
 .hmw-hero-badge {
   display: inline-block;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #f0c040;
-  font-size: 12px;
+  background: rgba(201,169,98,0.12);
+  border: 1px solid rgba(201,169,98,0.4);
+  color: #C9A962;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
   padding: 6px 18px;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 2px;
+  margin-bottom: 24px;
 }
 .hmw-hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(28px, 5vw, 52px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.15;
   margin-bottom: 16px;
   letter-spacing: -0.5px;
+  color: #FAF9F6;
 }
-.hmw-hero h1 span { color: #f0c040; }
+.hmw-hero h1 span { color: #C9A962; }
 .hmw-hero p {
-  font-size: clamp(16px, 2.5vw, 20px);
-  opacity: 0.9;
-  max-width: 540px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(15px, 2.2vw, 18px);
+  opacity: 0.85;
+  max-width: 520px;
   margin: 0 auto 30px;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: #FAF9F6;
 }
 .hmw-trust-bar {
   display: flex;
@@ -245,12 +266,15 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  font-size: 13px;
-  opacity: 0.85;
-  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  opacity: 0.8;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
-.hmw-trust-bar span { color: #f0c040; }
-.hmw-trust-bar .sep { opacity: 0.4; }
+.hmw-trust-bar span { color: #C9A962; }
+.hmw-trust-bar .sep { opacity: 0.3; color: #FAF9F6; }
+.hmw-trust-bar .trust-text { color: #FAF9F6; opacity: 0.75; }
 
 /* ===== FORM CARD ===== */
 .hmw-form-container {
@@ -261,23 +285,28 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   z-index: 10;
 }
 .hmw-form-card {
-  background: white;
-  border-radius: 16px;
-  padding: 36px 32px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: 40px 36px;
+  box-shadow: 0 20px 60px rgba(10,10,10,0.12), 0 2px 8px rgba(10,10,10,0.06);
+  border-top: 3px solid #C9A962;
 }
 .hmw-form-card h2 {
-  font-size: 20px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
   font-weight: 700;
-  color: #1a2e4a;
+  color: #0A0A0A;
   margin-bottom: 6px;
   text-align: center;
+  letter-spacing: -0.3px;
 }
 .hmw-form-card .hmw-form-sub {
-  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
   color: #666;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  letter-spacing: 0.2px;
 }
 .hmw-field-row {
   display: grid;
@@ -288,34 +317,38 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
 .hmw-field-full { margin-bottom: 14px; }
 .hmw-label {
   display: block;
-  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
   font-weight: 700;
-  color: #444;
+  color: #666;
   margin-bottom: 5px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 .hmw-input, .hmw-select {
   width: 100%;
   padding: 13px 14px;
-  border: 2px solid #e8e8e8;
-  border-radius: 8px;
-  font-size: 15px;
-  color: #1a1a1a;
-  background: #fafafa;
+  border: 1.5px solid #E5DDD0;
+  border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #0A0A0A;
+  background: #FDFCFA;
   transition: border-color 0.2s, background 0.2s;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
 }
 .hmw-input:focus, .hmw-select:focus {
-  border-color: #2c4a72;
-  background: white;
+  border-color: #C9A962;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(201,169,98,0.1);
 }
 .hmw-select {
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%23666" stroke-width="2" fill="none" stroke-linecap="round"/></svg>');
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%23C9A962" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>');
   background-repeat: no-repeat;
   background-position: right 14px center;
+  background-color: #FDFCFA;
   padding-right: 38px;
   cursor: pointer;
 }
@@ -324,54 +357,59 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 20px;
-  padding: 14px;
-  background: #f5f8fc;
-  border-radius: 8px;
-  border: 1px solid #dce8f5;
+  padding: 14px 16px;
+  background: #FAF9F6;
+  border-radius: 3px;
+  border: 1px solid #E5DDD0;
 }
 .hmw-consent input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
   margin-top: 2px;
   cursor: pointer;
-  accent-color: #2c4a72;
+  accent-color: #C9A962;
 }
 .hmw-consent label {
-  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
   color: #555;
-  line-height: 1.5;
+  line-height: 1.55;
   cursor: pointer;
 }
 .hmw-submit-btn {
   width: 100%;
   padding: 17px;
-  background: linear-gradient(135deg, #e8a020 0%, #f0c040 100%);
-  color: #1a1a1a;
+  background: #C9A962;
+  color: #0A0A0A;
   border: none;
-  border-radius: 10px;
-  font-size: 17px;
-  font-weight: 800;
+  border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  letter-spacing: 0.3px;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 20px rgba(232,160,32,0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 20px rgba(201,169,98,0.35);
 }
 .hmw-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(232,160,32,0.5);
+  background: #B8944E;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(201,169,98,0.45);
 }
 .hmw-submit-btn:active { transform: translateY(0); }
 .hmw-submit-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.65;
   cursor: not-allowed;
   transform: none;
 }
 .hmw-privacy {
   text-align: center;
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
   color: #999;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 .hmw-privacy svg { vertical-align: middle; margin-right: 3px; }
 
@@ -384,7 +422,7 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
 #hmw-thankyou .hmw-check {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #2c4a72, #1a2e4a);
+  background: #0A0A0A;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -392,15 +430,17 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   margin: 0 auto 20px;
 }
 #hmw-thankyou h3 {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 24px;
-  font-weight: 800;
-  color: #1a2e4a;
+  font-weight: 700;
+  color: #0A0A0A;
   margin-bottom: 12px;
 }
 #hmw-thankyou p {
-  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
   color: #555;
-  line-height: 1.6;
+  line-height: 1.7;
   max-width: 400px;
   margin: 0 auto;
 }
@@ -409,9 +449,9 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
 .hmw-trust-strip {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
-  padding: 20px 16px 0;
+  padding: 28px 16px 0;
   max-width: 580px;
   margin: 0 auto;
 }
@@ -419,16 +459,18 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   display: flex;
   align-items: center;
   gap: 7px;
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 40px;
+  background: #FFFFFF;
+  border: 1px solid #E5DDD0;
+  border-radius: 2px;
   padding: 8px 16px;
-  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
   font-weight: 600;
-  color: #1a2e4a;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  color: #0A0A0A;
+  box-shadow: 0 2px 8px rgba(10,10,10,0.04);
+  letter-spacing: 0.3px;
 }
-.hmw-trust-item svg { color: #e8a020; flex-shrink: 0; }
+.hmw-trust-item svg { color: #C9A962; flex-shrink: 0; }
 
 /* ===== AGENT CARD ===== */
 .hmw-agent-section {
@@ -437,13 +479,14 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   padding: 0 16px 60px;
 }
 .hmw-agent-card {
-  background: white;
-  border-radius: 16px;
+  background: #FFFFFF;
+  border-radius: 4px;
   padding: 28px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(10,10,10,0.06);
   display: flex;
   align-items: center;
   gap: 22px;
+  border-left: 3px solid #C9A962;
 }
 .hmw-agent-photo {
   width: 90px;
@@ -451,41 +494,45 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   min-width: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #2c4a72;
+  border: 2px solid #C9A962;
 }
 .hmw-agent-photo-placeholder {
   width: 90px;
   height: 90px;
   min-width: 90px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1a2e4a, #2c4a72);
+  background: #0A0A0A;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 32px;
-  font-weight: 800;
-  border: 3px solid #2c4a72;
+  color: #C9A962;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: 2px solid #C9A962;
 }
 .hmw-agent-info h3 {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 18px;
-  font-weight: 800;
-  color: #1a2e4a;
+  font-weight: 700;
+  color: #0A0A0A;
   margin-bottom: 4px;
 }
 .hmw-agent-info .hmw-agent-title {
-  font-size: 13px;
-  color: #e8a020;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: #C9A962;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
 }
 .hmw-agent-info p {
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
   color: #555;
-  line-height: 1.55;
-  margin-bottom: 10px;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 .hmw-agent-contact {
   display: flex;
@@ -493,37 +540,56 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
   gap: 8px;
 }
 .hmw-agent-contact a {
-  font-size: 13px;
-  font-weight: 700;
-  color: #2c4a72;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0A0A0A;
   text-decoration: none;
-  background: #f0f4f9;
-  padding: 5px 12px;
-  border-radius: 20px;
+  background: #FAF9F6;
+  padding: 5px 14px;
+  border-radius: 2px;
+  border: 1px solid #E5DDD0;
+  letter-spacing: 0.3px;
+  transition: border-color 0.2s, background 0.2s;
 }
-.hmw-agent-contact a:hover { background: #dce8f5; }
+.hmw-agent-contact a:hover {
+  background: #F5F0E6;
+  border-color: #C9A962;
+}
 .hmw-agent-dre {
-  font-size: 11px;
-  color: #999;
-  margin-top: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: #AAA;
+  margin-top: 8px;
+  letter-spacing: 0.3px;
 }
 
 /* ===== ERROR ===== */
 .hmw-error-msg {
   display: none;
-  background: #fff0f0;
-  border: 1px solid #ffcccc;
+  background: #fff5f5;
+  border: 1px solid #ffd0d0;
   color: #cc0000;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: 3px;
+  font-family: 'Inter', sans-serif;
   font-size: 13px;
   margin-top: 14px;
   text-align: center;
 }
 
+/* ===== DIVIDER ===== */
+.hmw-gold-rule {
+  width: 60px;
+  height: 1px;
+  background: #C9A962;
+  margin: 24px auto 0;
+  opacity: 0.5;
+}
+
 /* ===== MOBILE ===== */
 @media (max-width: 480px) {
-  .hmw-form-card { padding: 24px 18px; }
+  .hmw-form-card { padding: 28px 20px; }
   .hmw-field-row { grid-template-columns: 1fr; }
   .hmw-agent-card { flex-direction: column; text-align: center; }
   .hmw-agent-contact { justify-content: center; }
@@ -539,9 +605,9 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
     <button
       class="hmw-cma-btn"
       onclick="document.getElementById('hmw-form-anchor').scrollIntoView({behavior:'smooth',block:'start'});"
-      style="display:inline-block;margin-bottom:28px;padding:16px 36px;background:linear-gradient(135deg,#e8a020 0%,#f0c040 100%);color:#1a1a1a;border:none;border-radius:10px;font-size:18px;font-weight:800;cursor:pointer;letter-spacing:0.3px;box-shadow:0 4px 20px rgba(232,160,32,0.45);transition:transform 0.15s,box-shadow 0.15s;"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(232,160,32,0.55)'"
-      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(232,160,32,0.45)'"
+      style="display:inline-block;margin-bottom:28px;padding:16px 40px;background:#C9A962;color:#0A0A0A;border:none;border-radius:3px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;box-shadow:0 4px 20px rgba(201,169,98,0.4);transition:background 0.2s,transform 0.15s,box-shadow 0.15s;"
+      onmouseover="this.style.background='#B8944E';this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 28px rgba(201,169,98,0.5)'"
+      onmouseout="this.style.background='#C9A962';this.style.transform='';this.style.boxShadow='0 4px 20px rgba(201,169,98,0.4)'"
     >
       📊 Get Your Full CMA
     </button>
@@ -549,26 +615,26 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
     <div class="hmw-trust-bar">
       <span>⭐⭐⭐⭐⭐</span>
       <span class="sep">|</span>
-      <span>16 Years Experience</span>
+      <span class="trust-text">16 Years Experience</span>
       <span class="sep">|</span>
-      <span>144 Homes Sold</span>
+      <span class="trust-text">144 Homes Sold</span>
       <span class="sep">|</span>
-      <span>📞 805-206-6363</span>
+      <span class="trust-text">📞 805-206-6363</span>
     </div>
   </div>
 
   <!-- Trust Pills -->
   <div class="hmw-trust-strip">
     <div class="hmw-trust-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       No Obligation
     </div>
     <div class="hmw-trust-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       24-Hour Response
     </div>
     <div class="hmw-trust-item">
-      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       Local Market Expert
     </div>
   </div>
@@ -643,10 +709,10 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
 
         <div id="hmw-thankyou">
           <div class="hmw-check">
-            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            <svg width="30" height="30" fill="none" stroke="#C9A962" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <h3>You're All Set! 🎉</h3>
-          <p>Thank you! Sean will be in touch within 24 hours with your home value report.<br><br>Questions right now? Call or text <strong><a href="tel:8052066363" style="color:#2c4a72">805-206-6363</a></strong>.</p>
+          <h3>You're All Set!</h3>
+          <p>Thank you — Sean will be in touch within 24 hours with your home value report.<br><br>Questions right now? Call or text <strong><a href="tel:8052066363" style="color:#C9A962;text-decoration:none;">805-206-6363</a></strong>.</p>
         </div>
       </div>
     </div>
@@ -669,13 +735,15 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
     </div>
   </div>
 
+  <div class="hmw-gold-rule"></div>
+
   <!-- DRE Disclosure — California B&P § 10140.6 -->
-  <div class="dre-disclosure" style="text-align:center;padding:16px;font-size:11px;color:#888;border-top:1px solid #eee;margin-top:24px;">
+  <div class="dre-disclosure" style="text-align:center;padding:20px;font-family:'Inter',sans-serif;font-size:10px;color:#AAA;border-top:1px solid #E5DDD0;margin-top:24px;letter-spacing:0.5px;">
     Sean San Jose | CalDRE# 01884586 | eXp Realty of California, Inc. | CalDRE# 01878277
   </div>
 
   <!-- 1031 Exchange Tax Disclaimer -->
-  <div class="tax-disclaimer" style="text-align:center;padding:12px 24px;font-size:10px;color:#aaa;margin-top:8px;">
+  <div class="tax-disclaimer" style="text-align:center;padding:10px 24px 24px;font-family:'Inter',sans-serif;font-size:10px;color:#BBB;margin-top:4px;letter-spacing:0.3px;">
     This information is provided for general educational purposes only and does not constitute tax, legal, or financial advice. Consult a qualified tax professional or CPA before making any 1031 exchange decisions.
   </div>
 </div>

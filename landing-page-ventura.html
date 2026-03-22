@@ -291,6 +291,9 @@ async function submitForm(e) {
     fbq('track', 'Lead', { content_name: 'Home Valuation Request', content_category: 'Seller Lead', value: 20.00, currency: 'USD' });
   }
 
+  var PROXY_URL = 'https://refresh-directly-son-techniques.trycloudflare.com/lead';
+  var smsCheckbox = document.getElementById('sms_consent');
+
   var payload = {
     firstName: document.getElementById('firstName').value,
     lastName: document.getElementById('lastName').value,
@@ -299,23 +302,21 @@ async function submitForm(e) {
     address1: document.getElementById('address').value,
     source: document.getElementById('utm_source').value || 'Landing Page',
     tags: ['facebook-lead','seller-lead','ventura','home-value'],
-    locationId: 'rCKbYi4s8XwBpbFP5cVx'
+    sms_consent: (smsCheckbox && smsCheckbox.checked) ? 'yes' : 'no'
   };
 
   try {
-    var resp = await fetch('https://services.leadconnectorhq.com/contacts/', {
+    var resp = await fetch(PROXY_URL, {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
-        'Version': '2021-07-28',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     });
     var data = await resp.json();
-    console.log('GHL contact created:', data?.contact?.id);
+    console.log('Lead submitted via proxy:', data?.contact?.id || data?.id);
   } catch(err) {
-    console.error('GHL error:', err);
+    console.error('Proxy error:', err);
   }
 
   document.getElementById('valuationForm').style.display = 'none';

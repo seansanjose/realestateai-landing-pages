@@ -1,0 +1,11 @@
+# Cloudflare Pages _redirects
+# Format: /from /to [status]
+
+# Friendly aliases
+/ventura                /landing-page-ventura.html  302
+/home-value             /whats-my-home-worth-page.html  302
+/home-worth             /whats-my-home-worth-page.html  302
+
+# Catch-all: send unknown paths to main page
+# (remove comment below to enable)
+# /*  /index.html  200

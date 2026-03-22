@@ -1,0 +1,778 @@
+<!-- Address Autocomplete
+     Uses OpenStreetMap Nominatim API (free, no API key required) as primary autocomplete.
+     When GOOGLE_MAPS_API_KEY is available, replace YOUR_GOOGLE_MAPS_API_KEY below
+     and uncomment the Google script tag to upgrade to Google Places autocomplete.
+     
+     Google Places (upgrade when key available):
+     Restrict key to: Maps JavaScript API + Places API, HTTP referrers only.
+-->
+<style>
+#hmw-address-suggestions {
+  position: absolute;
+  z-index: 9999;
+  background: white;
+  border: 1px solid #dce8f5;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  display: none;
+}
+#hmw-address-suggestions .suggestion-item {
+  padding: 11px 14px;
+  font-size: 14px;
+  color: #1a1a1a;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 1.4;
+}
+#hmw-address-suggestions .suggestion-item:last-child { border-bottom: none; }
+#hmw-address-suggestions .suggestion-item:hover,
+#hmw-address-suggestions .suggestion-item.active {
+  background: #f0f6ff;
+  color: #1a2e4a;
+}
+#hmw-address-wrapper { position: relative; }
+</style>
+<script>
+  // ── Address Autocomplete ──────────────────────────────────────────────
+  // Primary: OpenStreetMap Nominatim (free, no key)
+  // Fallback/upgrade: Google Places (add GOOGLE_MAPS_API_KEY to secrets.env)
+
+  var hmwAutocompleteTimer = null;
+  var hmwSuggestionsEl = null;
+  var hmwActiveIndex = -1;
+
+  function initHmwAutocomplete() {
+    var addressInput = document.getElementById('hmw-address');
+    if (!addressInput) return;
+
+    // Wrap input in a relative container for dropdown positioning
+    var wrapper = document.createElement('div');
+    wrapper.id = 'hmw-address-wrapper';
+    wrapper.style.position = 'relative';
+    addressInput.parentNode.insertBefore(wrapper, addressInput);
+    wrapper.appendChild(addressInput);
+
+    // Create suggestions dropdown
+    hmwSuggestionsEl = document.createElement('div');
+    hmwSuggestionsEl.id = 'hmw-address-suggestions';
+    wrapper.appendChild(hmwSuggestionsEl);
+
+    // If Google is available (API key set), use Google Places
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+      var autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['formatted_address', 'geometry']
+      });
+      autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+        if (place && place.formatted_address) {
+          addressInput.value = place.formatted_address;
+        }
+      });
+      return; // Google is handling it
+    }
+
+    // Nominatim fallback
+    addressInput.addEventListener('input', function() {
+      var val = addressInput.value.trim();
+      hmwActiveIndex = -1;
+      clearTimeout(hmwAutocompleteTimer);
+      if (val.length < 4) { hmwHideSuggestions(); return; }
+      hmwAutocompleteTimer = setTimeout(function() { hmwFetchSuggestions(val); }, 350);
+    });
+
+    addressInput.addEventListener('keydown', function(e) {
+      var items = hmwSuggestionsEl.querySelectorAll('.suggestion-item');
+      if (!items.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        hmwActiveIndex = Math.min(hmwActiveIndex + 1, items.length - 1);
+        hmwUpdateActive(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        hmwActiveIndex = Math.max(hmwActiveIndex - 1, -1);
+        hmwUpdateActive(items);
+      } else if (e.key === 'Enter' && hmwActiveIndex >= 0) {
+        e.preventDefault();
+        items[hmwActiveIndex].click();
+      } else if (e.key === 'Escape') {
+        hmwHideSuggestions();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!wrapper.contains(e.target)) hmwHideSuggestions();
+    });
+  }
+
+  function hmwFetchSuggestions(query) {
+    // Bias toward US addresses, California preferred
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&countrycodes=us&addressdetails=1&limit=6&q=' + encodeURIComponent(query + ' California');
+    fetch(url, { headers: { 'Accept': 'application/json', 'Accept-Language': 'en-US' } })
+      .then(function(r) { return r.json(); })
+      .then(function(results) { hmwShowSuggestions(results); })
+      .catch(function() {});
+  }
+
+  function hmwShowSuggestions(results) {
+    if (!hmwSuggestionsEl || !results.length) { hmwHideSuggestions(); return; }
+    hmwSuggestionsEl.innerHTML = '';
+    results.forEach(function(r) {
+      var label = r.display_name || '';
+      // Shorten label: stop at first comma past street+city
+      var parts = label.split(', ');
+      if (parts.length > 4) label = parts.slice(0, 4).join(', ');
+      var item = document.createElement('div');
+      item.className = 'suggestion-item';
+      item.textContent = label;
+      item.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // Don't blur input
+        document.getElementById('hmw-address').value = label;
+        hmwHideSuggestions();
+      });
+      hmwSuggestionsEl.appendChild(item);
+    });
+    hmwSuggestionsEl.style.display = 'block';
+  }
+
+  function hmwHideSuggestions() {
+    if (hmwSuggestionsEl) hmwSuggestionsEl.style.display = 'none';
+    hmwActiveIndex = -1;
+  }
+
+  function hmwUpdateActive(items) {
+    items.forEach(function(el, i) {
+      el.classList.toggle('active', i === hmwActiveIndex);
+    });
+  }
+
+  // Init when DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHmwAutocomplete);
+  } else {
+    initHmwAutocomplete();
+  }
+</script>
+
+<!-- Google Places upgrade (uncomment when GOOGLE_MAPS_API_KEY is available in secrets.env):
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initHmwAutocomplete"
+  async
+  defer
+></script>
+-->
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '933431189279026');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+/* ===== RESET & BASE ===== */
+#hmw-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
+#hmw-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #1a1a1a;
+  background: #f8f8f6;
+  padding: 0;
+}
+
+/* ===== HERO SECTION ===== */
+.hmw-hero {
+  background: linear-gradient(135deg, #1a2e4a 0%, #2c4a72 60%, #1e3d6b 100%);
+  color: white;
+  text-align: center;
+  padding: 60px 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hmw-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 Q75,20 100,10 L100,20 L0,20 Z" fill="rgba(255,255,255,0.04)"/></svg>') repeat-x bottom;
+  background-size: 200px 40px;
+}
+.hmw-hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #f0c040;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hmw-hero h1 {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.hmw-hero h1 span { color: #f0c040; }
+.hmw-hero p {
+  font-size: clamp(16px, 2.5vw, 20px);
+  opacity: 0.9;
+  max-width: 540px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+.hmw-trust-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  opacity: 0.85;
+  font-weight: 600;
+}
+.hmw-trust-bar span { color: #f0c040; }
+.hmw-trust-bar .sep { opacity: 0.4; }
+
+/* ===== FORM CARD ===== */
+.hmw-form-container {
+  max-width: 580px;
+  margin: -40px auto 0;
+  padding: 0 16px 40px;
+  position: relative;
+  z-index: 10;
+}
+.hmw-form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+.hmw-form-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a2e4a;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.hmw-form-card .hmw-form-sub {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.hmw-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.hmw-field-full { margin-bottom: 14px; }
+.hmw-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.hmw-input, .hmw-select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fafafa;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.hmw-input:focus, .hmw-select:focus {
+  border-color: #2c4a72;
+  background: white;
+}
+.hmw-select {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%23666" stroke-width="2" fill="none" stroke-linecap="round"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+.hmw-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: #f5f8fc;
+  border-radius: 8px;
+  border: 1px solid #dce8f5;
+}
+.hmw-consent input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #2c4a72;
+}
+.hmw-consent label {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.hmw-submit-btn {
+  width: 100%;
+  padding: 17px;
+  background: linear-gradient(135deg, #e8a020 0%, #f0c040 100%);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 20px rgba(232,160,32,0.4);
+}
+.hmw-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232,160,32,0.5);
+}
+.hmw-submit-btn:active { transform: translateY(0); }
+.hmw-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+.hmw-privacy {
+  text-align: center;
+  font-size: 11px;
+  color: #999;
+  margin-top: 12px;
+}
+.hmw-privacy svg { vertical-align: middle; margin-right: 3px; }
+
+/* ===== THANK YOU ===== */
+#hmw-thankyou {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+#hmw-thankyou .hmw-check {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #2c4a72, #1a2e4a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+#hmw-thankyou h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a2e4a;
+  margin-bottom: 12px;
+}
+#hmw-thankyou p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ===== TRUST STRIP ===== */
+.hmw-trust-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 20px 16px 0;
+  max-width: 580px;
+  margin: 0 auto;
+}
+.hmw-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 40px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2e4a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.hmw-trust-item svg { color: #e8a020; flex-shrink: 0; }
+
+/* ===== AGENT CARD ===== */
+.hmw-agent-section {
+  max-width: 580px;
+  margin: 32px auto 0;
+  padding: 0 16px 60px;
+}
+.hmw-agent-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.hmw-agent-photo {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2c4a72;
+}
+.hmw-agent-photo-placeholder {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a2e4a, #2c4a72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  font-weight: 800;
+  border: 3px solid #2c4a72;
+}
+.hmw-agent-info h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a2e4a;
+  margin-bottom: 4px;
+}
+.hmw-agent-info .hmw-agent-title {
+  font-size: 13px;
+  color: #e8a020;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hmw-agent-info p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.hmw-agent-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hmw-agent-contact a {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2c4a72;
+  text-decoration: none;
+  background: #f0f4f9;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.hmw-agent-contact a:hover { background: #dce8f5; }
+.hmw-agent-dre {
+  font-size: 11px;
+  color: #999;
+  margin-top: 6px;
+}
+
+/* ===== ERROR ===== */
+.hmw-error-msg {
+  display: none;
+  background: #fff0f0;
+  border: 1px solid #ffcccc;
+  color: #cc0000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .hmw-form-card { padding: 24px 18px; }
+  .hmw-field-row { grid-template-columns: 1fr; }
+  .hmw-agent-card { flex-direction: column; text-align: center; }
+  .hmw-agent-contact { justify-content: center; }
+}
+</style>
+
+<div id="hmw-wrapper">
+  <!-- Hero -->
+  <div class="hmw-hero">
+    <div class="hmw-hero-badge">🏡 Free Home Valuation</div>
+    <h1>What's Your <span>Ventura Home</span> Worth?</h1>
+    <p>Find out what your home could sell for in today's market — free, no obligation.</p>
+    <button
+      class="hmw-cma-btn"
+      onclick="document.getElementById('hmw-form-anchor').scrollIntoView({behavior:'smooth',block:'start'});"
+      style="display:inline-block;margin-bottom:28px;padding:16px 36px;background:linear-gradient(135deg,#e8a020 0%,#f0c040 100%);color:#1a1a1a;border:none;border-radius:10px;font-size:18px;font-weight:800;cursor:pointer;letter-spacing:0.3px;box-shadow:0 4px 20px rgba(232,160,32,0.45);transition:transform 0.15s,box-shadow 0.15s;"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(232,160,32,0.55)'"
+      onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(232,160,32,0.45)'"
+    >
+      📊 Get Your Full CMA
+    </button>
+
+    <div class="hmw-trust-bar">
+      <span>⭐⭐⭐⭐⭐</span>
+      <span class="sep">|</span>
+      <span>16 Years Experience</span>
+      <span class="sep">|</span>
+      <span>144 Homes Sold</span>
+      <span class="sep">|</span>
+      <span>📞 805-206-6363</span>
+    </div>
+  </div>
+
+  <!-- Trust Pills -->
+  <div class="hmw-trust-strip">
+    <div class="hmw-trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      No Obligation
+    </div>
+    <div class="hmw-trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      24-Hour Response
+    </div>
+    <div class="hmw-trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      Local Market Expert
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div id="hmw-form-anchor" class="hmw-form-container">
+    <div class="hmw-form-card">
+      <h2>Get Your Free Home Value Report</h2>
+      <p class="hmw-form-sub">Fill out the form below — takes less than 60 seconds</p>
+
+      <div id="hmw-form-wrap">
+        <form id="hmw-form" novalidate>
+          <div class="hmw-field-full">
+            <label class="hmw-label" for="hmw-address">Property Address *</label>
+            <input class="hmw-input" type="text" id="hmw-address" name="address" placeholder="123 Main St, Ventura, CA" required autocomplete="street-address" />
+          </div>
+
+          <div class="hmw-field-row">
+            <div>
+              <label class="hmw-label" for="hmw-firstname">First Name *</label>
+              <input class="hmw-input" type="text" id="hmw-firstname" name="firstName" placeholder="Jane" required autocomplete="given-name" />
+            </div>
+            <div>
+              <label class="hmw-label" for="hmw-lastname">Last Name *</label>
+              <input class="hmw-input" type="text" id="hmw-lastname" name="lastName" placeholder="Smith" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="hmw-field-row">
+            <div>
+              <label class="hmw-label" for="hmw-email">Email *</label>
+              <input class="hmw-input" type="email" id="hmw-email" name="email" placeholder="jane@email.com" required autocomplete="email" />
+            </div>
+            <div>
+              <label class="hmw-label" for="hmw-phone">Phone *</label>
+              <input class="hmw-input" type="tel" id="hmw-phone" name="phone" placeholder="(805) 555-0100" required autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="hmw-field-full">
+            <label class="hmw-label" for="hmw-timeline">When Are You Looking to Sell? *</label>
+            <select class="hmw-select" id="hmw-timeline" name="timeline" required>
+              <option value="" disabled selected>Select a timeframe...</option>
+              <option value="ASAP">ASAP — I'm ready to move</option>
+              <option value="3-6 months">3–6 Months</option>
+              <option value="6-12 months">6–12 Months</option>
+              <option value="Just curious">Just curious about value</option>
+            </select>
+          </div>
+
+          <div class="hmw-consent">
+            <input type="checkbox" id="hmw-sms" name="smsConsent" required />
+            <label for="hmw-sms">I agree to receive text messages from Sean San Jose Real Estate regarding my home valuation. Message &amp; data rates may apply. Reply STOP to opt out. <strong style="color:#cc0000">*</strong></label>
+          </div>
+          <div class="hmw-error-msg" id="hmw-sms-error" style="display:none;">
+            Please check the box to consent to receiving text messages before submitting.
+          </div>
+
+          <button type="submit" class="hmw-submit-btn" id="hmw-submit">
+            🏡 Get My Free Home Value
+          </button>
+
+          <div class="hmw-error-msg" id="hmw-error">
+            Something went wrong. Please call Sean directly at <strong>805-206-6363</strong>.
+          </div>
+
+          <p class="hmw-privacy">
+            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            100% private. Your info is never sold or shared.
+          </p>
+        </form>
+
+        <div id="hmw-thankyou">
+          <div class="hmw-check">
+            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h3>You're All Set! 🎉</h3>
+          <p>Thank you! Sean will be in touch within 24 hours with your home value report.<br><br>Questions right now? Call or text <strong><a href="tel:8052066363" style="color:#2c4a72">805-206-6363</a></strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent Section -->
+  <div class="hmw-agent-section">
+    <div class="hmw-agent-card">
+      <div class="hmw-agent-photo-placeholder">SS</div>
+      <div class="hmw-agent-info">
+        <h3>Sean San Jose</h3>
+        <div class="hmw-agent-title">Your Ventura &amp; Montecito Market Expert</div>
+        <p>With 16 years in Ventura County real estate and 144 homes sold, Sean provides accurate, data-driven home valuations backed by deep local market knowledge. No pressure — just honest advice.</p>
+        <div class="hmw-agent-contact">
+          <a href="tel:8052066363">📞 805-206-6363</a>
+          <a href="mailto:info@seansanjose.com">✉️ Email Sean</a>
+        </div>
+        <div class="hmw-agent-dre">CalDRE# 01884586 &nbsp;|&nbsp; eXp Realty of California</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRE Disclosure — California B&P § 10140.6 -->
+  <div class="dre-disclosure" style="text-align:center;padding:16px;font-size:11px;color:#888;border-top:1px solid #eee;margin-top:24px;">
+    Sean San Jose | CalDRE# 01884586 | eXp Realty of California, Inc. | CalDRE# 01878277
+  </div>
+
+  <!-- 1031 Exchange Tax Disclaimer -->
+  <div class="tax-disclaimer" style="text-align:center;padding:12px 24px;font-size:10px;color:#aaa;margin-top:8px;">
+    This information is provided for general educational purposes only and does not constitute tax, legal, or financial advice. Consult a qualified tax professional or CPA before making any 1031 exchange decisions.
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── Proxy endpoint (API key lives server-side, never in browser) ──
+  var PROXY_URL = 'http://localhost:4444/lead';
+
+  var form = document.getElementById('hmw-form');
+  var submitBtn = document.getElementById('hmw-submit');
+  var errorMsg = document.getElementById('hmw-error');
+  var smsError = document.getElementById('hmw-sms-error');
+  var thankYou = document.getElementById('hmw-thankyou');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Hide any prior errors
+    if (smsError) smsError.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    // Validate required fields
+    var address = document.getElementById('hmw-address').value.trim();
+    var firstName = document.getElementById('hmw-firstname').value.trim();
+    var lastName = document.getElementById('hmw-lastname').value.trim();
+    var email = document.getElementById('hmw-email').value.trim();
+    var phone = document.getElementById('hmw-phone').value.trim();
+    var timeline = document.getElementById('hmw-timeline').value;
+
+    if (!address || !firstName || !lastName || !email || !phone || !timeline) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // TCPA: SMS consent checkbox is required
+    var smsCheckbox = document.getElementById('hmw-sms');
+    if (smsCheckbox && !smsCheckbox.checked) {
+      if (smsError) {
+        smsError.style.display = 'block';
+        smsError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    // Disable button while submitting
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    // Build proxy payload — NO notes field, NO API key, NO locationId (proxy adds those)
+    var payload = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      address1: address,
+      sell_timeline: timeline,
+      sms_consent: (smsCheckbox && smsCheckbox.checked) ? 'yes' : 'no',
+      tags: ['facebook-lead', 'seller-lead', 'ventura', 'home-value'],
+      source: 'Facebook Ad - What Is My Home Worth'
+    };
+
+    // POST through server-side GHL proxy (keeps API key off the client)
+    fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      return res.json().then(function(data) {
+        if (res.ok && data.success) {
+          onSuccess();
+        } else {
+          // Proxy returned an error — do NOT show success
+          throw new Error(data.error || 'Submission failed (status ' + res.status + ')');
+        }
+      });
+    })
+    .catch(function(err) {
+      // Real error — show error UI, never show thank-you screen
+      console.error('Form submission error:', err);
+      submitBtn.disabled = false;
+      submitBtn.textContent = '🏡 Get My Free Home Value';
+      errorMsg.style.display = 'block';
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  function onSuccess() {
+    // Fire Facebook Pixel Lead event
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead');
+    }
+    // Show thank you — ONLY called on confirmed success from proxy
+    form.style.display = 'none';
+    thankYou.style.display = 'block';
+    thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
+</script>

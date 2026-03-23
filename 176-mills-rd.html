@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>176 N Mills Rd Ventura CA 93003 | 4 Bed Home with Channel Islands Views</title>
+  <meta name="description" content="Explore 176 N Mills Rd in Ventura, CA — a 4 bed, 3 bath home priced at $1,150,000 with Channel Islands views, paid-off solar, ADU potential, and a vaulted primary suite. Schedule a showing with Sean San Jose." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #0D1F3C;
+      --blue: #1565C0;
+      --blue-light: #1976D2;
+      --blue-bright: #2196F3;
+      --gold: #D4AF37;
+      --white: #FFFFFF;
+      --off-white: #F8F9FB;
+      --gray-100: #F1F4F8;
+      --gray-200: #E2E8F0;
+      --gray-400: #94A3B8;
+      --gray-600: #64748B;
+      --gray-800: #1E293B;
+      --green: #16A34A;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow: 0 4px 24px rgba(10,22,40,0.10);
+      --shadow-lg: 0 8px 40px rgba(10,22,40,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--off-white);
+      color: var(--gray-800);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ─── OPEN HOUSE BANNER ─── */
+    .open-house-banner {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(90deg, var(--gold) 0%, #B8960C 100%);
+      color: var(--navy);
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .open-house-banner .dot {
+      width: 8px; height: 8px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 60%, #0F2952 100%);
+      color: var(--white);
+      padding: 56px 20px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(21,101,192,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-address {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900;
+      line-height: 1.18;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: rgba(255,255,255,0.82);
+      max-width: 600px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .hero-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .hero-price {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 900;
+      color: var(--white);
+    }
+    .hero-price-was {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: line-through;
+    }
+    .hero-badge {
+      background: rgba(212,175,55,0.18);
+      border: 1px solid rgba(212,175,55,0.45);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 40px;
+    }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .chip {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 40px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(21,101,192,0.40);
+    }
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 4px 16px rgba(212,175,55,0.35);
+    }
+    .btn-gold:hover { background: #C5A028; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.08); }
+    .btn-blue-solid {
+      background: var(--blue);
+      color: var(--white);
+      font-size: 16px;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(21,101,192,0.40);
+      width: 100%;
+    }
+    .btn-blue-solid:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+    /* ─── SECTION WRAPPERS ─── */
+    .section {
+      padding: 56px 20px;
+    }
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--gray-600);
+      margin-bottom: 32px;
+    }
+    .section-divider {
+      width: 48px;
+      height: 4px;
+      background: var(--blue);
+      border-radius: 4px;
+      margin: 12px 0 28px;
+    }
+
+    /* ─── MAP STRIP ─── */
+    .map-strip {
+      background: var(--navy);
+      padding: 0;
+      text-align: center;
+      overflow: hidden;
+    }
+    .map-strip img {
+      width: 100%;
+      max-width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── PHOTO GALLERY ─── */
+    .gallery-section {
+      background: var(--white);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .gallery-item {
+      background: var(--gray-100);
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px dashed var(--gray-200);
+      color: var(--gray-400);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item .photo-icon {
+      font-size: 28px;
+      opacity: 0.4;
+    }
+    .gallery-item.featured {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* ─── PROPERTY HIGHLIGHTS ─── */
+    .highlights-section {
+      background: var(--off-white);
+    }
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 580px) {
+      .highlights-grid { grid-template-columns: 1fr; }
+    }
+    .highlight-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .highlight-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .highlight-icon {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-bright) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .highlight-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .highlight-body p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.55;
+    }
+
+    /* ─── PROPERTY DESCRIPTION ─── */
+    .description-section {
+      background: var(--white);
+    }
+    .description-text {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--gray-800);
+    }
+
+    /* ─── LEAD FORM ─── */
+    .form-section {
+      background: linear-gradient(160deg, var(--navy) 0%, #0D2244 100%);
+      padding: 64px 20px;
+    }
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      max-width: 540px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-lg);
+    }
+    @media (max-width: 480px) {
+      .form-card { padding: 28px 20px; }
+    }
+    .form-section .section-title { color: var(--white); text-align: center; }
+    .form-section .section-sub { color: rgba(255,255,255,0.65); text-align: center; margin-bottom: 32px; }
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-card .form-subtitle {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--gray-800);
+      background: var(--gray-100);
+      transition: border-color 0.15s ease;
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: var(--blue);
+      background: var(--white);
+    }
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .check-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--blue);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .check-row label {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .form-trust {
+      font-size: 11px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-top: 12px;
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      background: #F0FDF4;
+      border-radius: var(--radius);
+      border: 1px solid #BBF7D0;
+      color: var(--green);
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 16px;
+    }
+    .form-error {
+      display: none;
+      font-size: 13px;
+      color: #DC2626;
+      margin-top: 8px;
+    }
+
+    /* ─── SIMILAR HOMES ─── */
+    #similar-homes {
+      display: none;
+      background: var(--off-white);
+      padding: 56px 20px;
+    }
+    .comps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .comp-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .comp-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .comp-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .comp-address {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+    }
+    .comp-details {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+    .comp-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .comp-cta {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .comp-loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--gray-400);
+      font-size: 14px;
+    }
+    .comp-disclaimer {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* ─── SHOWING CTA ─── */
+    .showing-cta-section {
+      background: var(--blue);
+      padding: 56px 20px;
+      text-align: center;
+    }
+    .showing-cta-section h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .showing-cta-section p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.80);
+      margin-bottom: 28px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── AGENT ─── */
+    .agent-section {
+      background: var(--white);
+    }
+    .agent-card {
+      background: var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      border: 1px solid var(--gray-200);
+    }
+    .agent-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--blue);
+      flex-shrink: 0;
+    }
+    .agent-photo-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      flex-shrink: 0;
+      border: 3px solid var(--blue);
+    }
+    .agent-info h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .agent-dre {
+      font-size: 13px;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+    }
+    .agent-bio {
+      font-size: 15px;
+      color: var(--gray-800);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      max-width: 540px;
+    }
+    .agent-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .agent-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .agent-contact a:hover { text-decoration: underline; }
+
+    /* ─── DISCLAIMERS ─── */
+    .disclaimers-section {
+      background: var(--navy);
+      padding: 40px 20px;
+    }
+    .disclaimers-section .section-inner {
+      max-width: 860px;
+    }
+    .disclaimer-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #060E1A;
+      padding: 24px 20px;
+      text-align: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    footer .footer-logo {
+      font-size: 16px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+    footer .equal-housing {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+
+    /* ─── UTILITIES ─── */
+    @media (max-width: 640px) {
+      .hero { padding: 40px 16px 52px; }
+      .section { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- OPEN HOUSE BANNER -->
+<div class="open-house-banner">
+  <span class="dot"></span>
+  Open House: Sunday 1–4 PM &nbsp;·&nbsp; 176 N Mills Rd, Ventura
+  <span class="dot"></span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-address">176 N Mills Rd, Ventura, CA 93003</div>
+  <h1>Ventura Living with Channel Islands Views and Room to Grow</h1>
+  <p class="hero-sub">
+    176 N Mills Rd, Ventura, CA 93003 is a 4 bed, 3 bath home priced at $1,150,000, reduced from $1,195,000, with paid-off solar, ADU potential, and a vaulted primary suite designed for everyday comfort.
+  </p>
+  <div class="hero-price-row">
+    <span class="hero-price">$1,150,000</span>
+    <span class="hero-price-was">$1,195,000</span>
+    <span class="hero-badge">Price Reduced</span>
+  </div>
+  <div class="hero-chips">
+    <span class="chip">4 Bed / 3 Bath</span>
+    <span class="chip">Channel Islands Views</span>
+    <span class="chip">Paid-Off Solar</span>
+    <span class="chip">ADU Potential</span>
+    <span class="chip">Vaulted Primary Suite</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" target="_blank" rel="noopener" class="btn btn-gold">
+      📅 Schedule a Showing
+    </a>
+    <a href="#lead-form" class="btn btn-outline">
+      See Similar Homes ↓
+    </a>
+  </div>
+</section>
+
+<!-- MAP STRIP -->
+<div class="map-strip">
+  <img
+    src="https://maps.googleapis.com/maps/api/staticmap?center=34.2764083,-119.2481802&zoom=15&size=640x400&maptype=roadmap&markers=color:red%7C34.2764083,-119.2481802&key=AIzaSyBwXTKIAPNoBKUM3Gf4s9TdU-o77MqETIE"
+    alt="176 N Mills Rd, Ventura, CA — Map"
+    loading="lazy"
+  />
+</div>
+
+<!-- PHOTO GALLERY -->
+<section class="section gallery-section">
+  <div class="section-inner">
+    <h2 class="section-title">Property Photos</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-grid">
+      <div class="gallery-item featured">
+        <span class="photo-icon">🏡</span>
+        <span>Exterior — Coming Soon</span>
+      </div>
+      <div class="gallery-item">
+        <span class="photo-icon">🛋️</span>
+        <span>Living Spaces</span>
+      </div>
+      <div class="gallery-item">
+        <span class="photo-icon">🍳</span>
+        <span>Kitchen</span>
+      </div>
+      <div class="gallery-item">
+        <span class="photo-icon">🛏️</span>
+        <span>Primary Suite</span>
+      </div>
+      <div class="gallery-item">
+        <span class="photo-icon">🌊</span>
+        <span>Channel Islands Views</span>
+      </div>
+      <div class="gallery-item">
+        <span class="photo-icon">🌿</span>
+        <span>Backyard / ADU Potential</span>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--gray-400);text-align:center;margin-top:16px;">Professional photos coming soon. Contact Sean for a private walkthrough.</p>
+  </div>
+</section>
+
+<!-- PROPERTY DESCRIPTION -->
+<section class="section description-section">
+  <div class="section-inner">
+    <h2 class="section-title">About This Home</h2>
+    <div class="section-divider"></div>
+    <p class="description-text">
+      Wake up to sweeping Channel Islands views in a Ventura home that balances lifestyle, comfort, and long-term potential. With four bedrooms, three bathrooms, paid-off solar, and space for the future, 176 N Mills Rd offers the kind of flexibility buyers look for when they want a home that feels good now and makes sense later.
+    </p>
+    <div style="margin-top:36px;text-align:center;">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" target="_blank" rel="noopener" class="btn btn-primary">
+        📅 Book a Private Tour
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTY HIGHLIGHTS -->
+<section class="section highlights-section">
+  <div class="section-inner">
+    <h2 class="section-title">Why Buyers Love This Home</h2>
+    <div class="section-divider"></div>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">🌊</div>
+        <div class="highlight-body">
+          <h3>Channel Islands Views</h3>
+          <p>Sweeping views that elevate everyday living — a rare and lasting visual feature of this Ventura hillside location.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">☀️</div>
+        <div class="highlight-body">
+          <h3>Paid-Off Solar</h3>
+          <p>The solar system is fully paid — reducing ongoing utility costs from day one without the burden of a lease or loan.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🏗️</div>
+        <div class="highlight-body">
+          <h3>ADU Potential</h3>
+          <p>Lot characteristics support future ADU development — ideal for rental income, multigenerational living, or added versatility.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🛏️</div>
+        <div class="highlight-body">
+          <h3>Vaulted Primary Suite</h3>
+          <p>The vaulted primary suite brings height, light, and a sense of retreat — a standout feature that elevates the daily experience.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🏠</div>
+        <div class="highlight-body">
+          <h3>4 Bedrooms / 3 Bathrooms</h3>
+          <p>Versatile layout supports families, guests, remote work setups, and everything in between.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">📉</div>
+        <div class="highlight-body">
+          <h3>Price Reduced to $1,150,000</h3>
+          <p>Recently reduced from $1,195,000 — strong value for a view home with long-term upside in this Ventura price range.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<section class="form-section" id="lead-form">
+  <h2 class="section-title">Interested in 176 N Mills Rd?</h2>
+  <p class="section-sub">Submit your info to request a showing and unlock similar Ventura homes in this price range.</p>
+  <div class="form-card">
+    <h3>Request a Showing &amp; Unlock Similar Ventura Homes</h3>
+    <p class="form-subtitle">Sean will personally follow up. Your information is private and used only to help you with this home search.</p>
+    <form id="buyer-lead-form" novalidate>
+      <div class="form-group">
+        <label for="lead-name">Full Name *</label>
+        <input type="text" id="lead-name" name="name" placeholder="Your full name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="lead-email">Email Address *</label>
+        <input type="email" id="lead-email" name="email" placeholder="you@email.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="lead-phone">Phone Number *</label>
+        <input type="tel" id="lead-phone" name="phone" placeholder="(805) 000-0000" required autocomplete="tel" />
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="pre-approved" name="pre_approved" />
+        <label for="pre-approved">I am pre-approved for a mortgage</label>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="tcpa-consent" name="tcpa_consent" required />
+        <label for="tcpa-consent">
+          I agree to receive text messages and calls about this property. Message and data rates may apply. Reply STOP to opt out.
+          <a href="https://montecitoinsider.com/privacy-policy/" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;"> Privacy Policy</a>
+        </label>
+      </div>
+      <div class="form-error" id="form-error"></div>
+      <button type="submit" class="btn btn-blue-solid" id="form-submit-btn">
+        Unlock Similar Homes →
+      </button>
+      <p class="form-trust">🔒 Your information is private and used only to help you with this home search.</p>
+    </form>
+    <div class="form-success" id="form-success">
+      ✅ Got it! Sean will be in touch shortly. Scroll down to see similar Ventura homes.
+    </div>
+  </div>
+</section>
+
+<!-- SIMILAR HOMES (hidden until form submit) -->
+<section id="similar-homes">
+  <div class="section-inner">
+    <h2 class="section-title">See Similar Homes Near 176 N Mills Rd</h2>
+    <p class="section-sub">More Ventura homes in this price range, curated for you.</p>
+    <div class="section-divider"></div>
+    <div id="comps-container" class="comps-grid">
+      <div class="comp-loading">Loading nearby homes…</div>
+    </div>
+    <p class="comp-disclaimer">Listing data provided by third-party sources. All information should be independently verified.</p>
+  </div>
+</section>
+
+<!-- SHOWING CTA -->
+<section class="showing-cta-section">
+  <h2>Ready to See 176 N Mills Rd in Person?</h2>
+  <p>Schedule a private showing with Sean San Jose — Ventura's local expert in this price range.</p>
+  <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:16px;padding:16px 36px;">
+    📅 Schedule a Private Showing
+  </a>
+</section>
+
+<!-- AGENT -->
+<section class="section agent-section">
+  <div class="section-inner">
+    <h2 class="section-title">Your Agent</h2>
+    <div class="section-divider"></div>
+    <div class="agent-card">
+      <img src="/sean-headshot.jpg" alt="Sean San Jose" class="agent-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="agent-photo-placeholder" style="display:none">👤</div>
+      <div class="agent-info">
+        <h3>Sean San Jose</h3>
+        <p class="agent-dre">DRE #01884586 &nbsp;·&nbsp; eXp Realty of California Inc. &nbsp;·&nbsp; DRE #01878277</p>
+        <p class="agent-bio">
+          Sean San Jose is a Ventura-area real estate professional who helps buyers move with clarity in competitive price points. He combines local market knowledge with a calm, responsive approach so clients can recognize the right opportunity and act with confidence. If 176 N Mills Rd feels like the kind of home you have been waiting for, Sean can help you take the next step quickly.
+        </p>
+        <div class="agent-contact">
+          <a href="tel:8052066363">📞 (805) 206-6363</a>
+          <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" target="_blank" rel="noopener">📅 Book a Showing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMERS -->
+<section class="disclaimers-section">
+  <div class="section-inner">
+    <p class="disclaimer-text">
+      <strong style="color:rgba(255,255,255,0.6)">ADU Disclaimer:</strong> ADU potential is based on lot characteristics and is subject to City of Ventura zoning, permitting requirements, and buyer verification.
+    </p>
+    <p class="disclaimer-text">
+      <strong style="color:rgba(255,255,255,0.6)">Solar Disclaimer:</strong> Solar system is paid in full. Actual energy savings vary based on usage and utility rates.
+    </p>
+    <p class="disclaimer-text">
+      <strong style="color:rgba(255,255,255,0.6)">Data Disclaimer:</strong> Listing data provided by third-party sources. All information should be independently verified.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sean San Jose Real Estate</div>
+  <div>
+    <span class="equal-housing">⊕</span>
+    Equal Housing Opportunity
+  </div>
+  <div>Sean San Jose &nbsp;|&nbsp; DRE #01884586 &nbsp;|&nbsp; eXp Realty of California Inc. &nbsp;|&nbsp; DRE #01878277</div>
+  <div style="margin-top:6px;">176 N Mills Rd, Ventura, CA 93003 &nbsp;·&nbsp; $1,150,000</div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var form = document.getElementById('buyer-lead-form');
+  var submitBtn = document.getElementById('form-submit-btn');
+  var formError = document.getElementById('form-error');
+  var formSuccess = document.getElementById('form-success');
+  var similarSection = document.getElementById('similar-homes');
+  var compsContainer = document.getElementById('comps-container');
+
+  function showError(msg) {
+    formError.textContent = msg;
+    formError.style.display = 'block';
+  }
+
+  function hideError() {
+    formError.style.display = 'none';
+    formError.textContent = '';
+  }
+
+  function formatPrice(val) {
+    if (!val) return 'N/A';
+    var n = parseFloat(val);
+    if (isNaN(n)) return val;
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function buildCompsHTML(comps) {
+    if (!comps || comps.length === 0) {
+      return '<p style="color:var(--gray-400);font-size:14px;text-align:center;padding:20px;">No similar listings found at this time. Contact Sean for personalized recommendations.</p>';
+    }
+    return comps.map(function (c) {
+      var address = c.address || c.formattedAddress || 'Ventura, CA';
+      var price = formatPrice(c.price || c.listPrice);
+      var beds = c.bedrooms || c.beds || '—';
+      var baths = c.bathrooms || c.baths || '—';
+      var sqft = c.squareFootage || c.sqft || c.livingArea || '—';
+      if (sqft && sqft !== '—') sqft = parseInt(sqft).toLocaleString('en-US') + ' sqft';
+      var encAddr = encodeURIComponent(address);
+      var href = 'https://montecitoinsider.com/what-is-my-home-worth/?address=' + encAddr;
+      return '<a class="comp-card" href="' + href + '" target="_blank" rel="noopener">' +
+        '<div class="comp-price">' + price + '</div>' +
+        '<div class="comp-address">' + address + '</div>' +
+        '<div class="comp-details">' +
+          '<span class="comp-detail-item">🛏 ' + beds + ' bd</span>' +
+          '<span class="comp-detail-item">🚿 ' + baths + ' ba</span>' +
+          '<span class="comp-detail-item">📐 ' + sqft + '</span>' +
+        '</div>' +
+        '<span class="comp-cta">View Home Value →</span>' +
+      '</a>';
+    }).join('');
+  }
+
+  function loadComps() {
+    fetch('http://localhost:4444/comps?address=176+N+Mills+Rd,+Ventura,+CA+93003')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Comps fetch failed: ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var comps = Array.isArray(data) ? data : (data.listings || data.results || data.comps || []);
+        compsContainer.innerHTML = buildCompsHTML(comps);
+      })
+      .catch(function () {
+        compsContainer.innerHTML = '<p style="color:var(--gray-400);font-size:14px;text-align:center;padding:20px;">Unable to load similar listings. Contact Sean for personalized recommendations.</p>';
+      });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    hideError();
+
+    var name = document.getElementById('lead-name').value.trim();
+    var email = document.getElementById('lead-email').value.trim();
+    var phone = document.getElementById('lead-phone').value.trim();
+    var preApproved = document.getElementById('pre-approved').checked;
+    var tcpa = document.getElementById('tcpa-consent').checked;
+
+    if (!name) { showError('Please enter your name.'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
+    if (!phone) { showError('Please enter your phone number.'); return; }
+    if (!tcpa) { showError('Please consent to receive communications to continue.'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    var payload = {
+      name: name,
+      email: email,
+      phone: phone,
+      pre_approved: preApproved,
+      tcpa_consent: tcpa,
+      tags: ['buyer-lead-176-mills'],
+      source: '176-mills-rd-landing',
+      property: '176 N Mills Rd, Ventura, CA 93003'
+    };
+
+    fetch('http://localhost:4444/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Submit failed: ' + res.status);
+        return res.json().catch(function () { return {}; });
+      })
+      .then(function () {
+        form.style.display = 'none';
+        formSuccess.style.display = 'block';
+        // Reveal similar homes and fetch comps
+        similarSection.style.display = 'block';
+        loadComps();
+        setTimeout(function () {
+          similarSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 400);
+      })
+      .catch(function () {
+        // On error, still show similar homes (graceful degradation) but show error too
+        showError('There was an issue submitting. Please call Sean directly at (805) 206-6363.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Unlock Similar Homes →';
+      });
+  });
+})();
+</script>
+</body>
+</html>

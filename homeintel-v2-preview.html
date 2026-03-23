@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomeIntel Report — 176 N Mills Rd, Ventura, CA 93003</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── TOKENS ────────────────────────────────────────────── */
+    :root {
+      --navy:       #0A1628;
+      --navy-mid:   #0D1E38;
+      --navy-light: #162440;
+      --blue:       #1565C0;
+      --blue-light: #1976D2;
+      --white:      #FFFFFF;
+      --off-white:  #F8F9FA;
+      --coral:      #FF5252;
+      --green:      #00C853;
+      --amber:      #FFB300;
+      --text-dark:  #0A1628;
+      --text-mid:   #37474F;
+      --text-muted: #78909C;
+      --border:     #E3E8EF;
+      --card-shadow: 0 2px 20px rgba(10,22,40,0.08);
+      --section-pad: 120px 24px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ── STICKY FOOTER CTA ──────────────────────────────────── */
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      gap: 0;
+      padding: 12px 16px 28px;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.3);
+    }
+    .sticky-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.1s;
+      min-height: 48px;
+    }
+    .sticky-btn:active { transform: scale(0.97); }
+    .sticky-btn-call {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      margin-right: 8px;
+    }
+    .sticky-btn-schedule {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-fast {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .reveal-fast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal + .reveal { border-top: 1px solid rgba(0,0,0,0.06); }
+
+    /* ── HERO SECTION ───────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      padding: 28px 24px 48px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(21,101,192,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 28px;
+    }
+    .hero-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .hero-value {
+      font-size: clamp(52px, 12vw, 80px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: var(--white);
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-range-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    /* Range Bar */
+    .range-bar-wrap {
+      margin: 20px 0 24px;
+    }
+    .range-bar {
+      position: relative;
+      height: 6px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 3px;
+      margin: 12px 0 8px;
+    }
+    .range-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(21,101,192,0.6), rgba(21,101,192,1));
+      border-radius: 3px;
+    }
+    .range-bar-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: var(--white);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(255,255,255,0.15); }
+    }
+    .range-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+
+    /* Market badge + trend */
+    .hero-meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .market-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .market-badge.hot { background: var(--coral); color: var(--white); }
+    .market-badge.warm { background: var(--amber); color: var(--navy); }
+    .market-badge.cold { background: rgba(255,255,255,0.15); color: var(--white); }
+    .trend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0,200,83,0.15);
+      border: 1px solid rgba(0,200,83,0.3);
+      color: var(--green);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .trend-pill.down {
+      background: rgba(255,82,82,0.15);
+      border-color: rgba(255,82,82,0.3);
+      color: var(--coral);
+    }
+    .comp-context {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+    }
+
+    /* Hero CTAs */
+    .hero-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 18px 32px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      min-height: 56px;
+      transition: background 0.2s, transform 0.1s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-primary:hover { background: var(--blue-light); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      min-height: 52px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      transition: background 0.2s;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    /* Hero DRE info */
+    .hero-dre {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+    }
+
+    /* ── SECTION SHARED STYLES ──────────────────────────────── */
+    section {
+      padding: var(--section-pad);
+    }
+    section:nth-child(even) {
+      background: var(--white);
+    }
+    section:nth-child(odd) {
+      background: var(--off-white);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-headline {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .section-subline {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+    .inline-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      margin-top: 16px;
+    }
+    .inline-cta-link:hover { text-decoration: underline; }
+
+    /* ── CHARTS ─────────────────────────────────────────────── */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      margin: 24px 0;
+    }
+    .chart-container canvas {
+      max-width: 100%;
+    }
+
+    /* ── SECTION 2 — PRICE TREND ────────────────────────────── */
+    .trend-section { background: var(--navy) !important; }
+    .trend-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+    .trend-section .section-headline { color: var(--white); }
+    .trend-section .section-subline { color: rgba(255,255,255,0.6); }
+    .trend-section .inline-cta-link { color: #90CAF9; }
+    .trend-chart-wrap {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 20px 16px;
+    }
+
+    /* ── SECTION 3 — MARKET CONDITIONS ─────────────────────── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .stat-card.navy-card {
+      background: var(--navy);
+      border-color: transparent;
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -1px;
+    }
+    .stat-number.white { color: var(--white); }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 6px;
+    }
+    .stat-label.white { color: rgba(255,255,255,0.55); }
+    .stat-card.above .stat-number { color: var(--green); }
+    .stat-card.below .stat-number { color: var(--coral); }
+    .stat-card.at .stat-number { color: var(--amber); }
+
+    /* DOM Badge */
+    .dom-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,200,83,0.1);
+      border: 1px solid rgba(0,200,83,0.25);
+      color: var(--green);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    /* Market Health Gauge */
+    .gauge-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 16px;
+    }
+    .gauge-svg-wrap {
+      width: 220px;
+      height: 120px;
+      position: relative;
+    }
+    .gauge-label {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-top: 12px;
+      text-align: center;
+    }
+    .gauge-sublabel {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 4px;
+    }
+    .gauge-arc-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+    }
+    .ppsf-trend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .ppsf-trend-row.down { color: var(--coral); }
+
+    /* ── COMPARABLE SALES SECTION ───────────────────────────── */
+    .comps-section { background: var(--navy) !important; }
+    .comps-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+    .comps-section .section-headline { color: var(--white); }
+    .comps-section .section-subline { color: rgba(255,255,255,0.65); }
+    .comp-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    @media (min-width: 640px) {
+      .comp-card-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .comp-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px 16px;
+    }
+    .comp-address {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .comp-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .comp-details {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3px;
+    }
+    .comp-ppsf {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .comp-description {
+      font-size: 11px;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .comp-cta {
+      display: block;
+      font-size: 11px;
+      color: var(--blue-light);
+      text-decoration: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .comp-cta:hover { color: #42A5F5; text-decoration: underline; }
+    .comp-empty {
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 40px 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-top: 24px;
+    }
+
+    /* ── SECTION 4 — NEIGHBORHOOD ───────────────────────────── */
+    .map-wrap {
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--border);
+      margin: 24px 0;
+      position: relative;
+    }
+    .map-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .map-fallback {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e5e8ef;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .map-home-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: var(--blue);
+      border-radius: 50% 50% 50% 0;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      border: 3px solid var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .map-tagline {
+      font-size: 14px;
+      color: var(--text-mid);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    /* Walk Score Badges */
+    .score-badges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .score-badge {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 12px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .score-ring-wrap {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 10px;
+    }
+    .score-ring-wrap svg {
+      transform: rotate(-90deg);
+    }
+    .score-number-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .score-type {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .score-sub-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .walk-score-disclaimer {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--off-white);
+      border-radius: 12px;
+    }
+
+    /* ── CTA MOMENT 1 ────────────────────────────────────────── */
+    .cta-interstitial {
+      background: var(--blue) !important;
+      padding: 48px 24px !important;
+      text-align: center;
+    }
+    .cta-interstitial .section-headline { color: var(--white); }
+    .cta-interstitial .section-subline { color: rgba(255,255,255,0.75); max-width: 100%; }
+    .cta-interstitial .btn-white {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--blue);
+      padding: 18px 40px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 32px;
+      width: 100%;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-interstitial .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.3);
+    }
+    .cta-interstitial .btn-white:active { transform: scale(0.98); }
+    .cta-interstitial .btn-call {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.9);
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 18px;
+    }
+
+    /* ── SECTION 5 — MEET SEAN ──────────────────────────────── */
+    .sean-section { background: var(--navy) !important; }
+    .sean-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+    .sean-section .section-headline { color: var(--white); }
+    .sean-section .section-subline { color: rgba(255,255,255,0.65); }
+
+    .sean-photo-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 0 20px;
+    }
+    .sean-initials-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue) 0%, #0D3B8C 100%);
+      border: 3px solid #C9A84C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 2px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 6px rgba(201,168,76,0.15);
+    }
+    .sean-bio {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 32px;
+      border-left: 3px solid var(--blue);
+      padding-left: 18px;
+    }
+
+    .agent-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0 32px;
+    }
+    .agent-stat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px 14px;
+    }
+    .agent-stat-value {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    .agent-stat-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .differentiator-copy {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .differentiator-copy strong {
+      color: var(--white);
+    }
+
+    .sean-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-white-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-white-outline:hover { background: rgba(255,255,255,0.07); }
+
+    /* ── SECTION 6 — MAESTRO SYSTEM ─────────────────────────── */
+    .maestro-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin: 28px auto;
+      max-width: 420px;
+    }
+    .maestro-node {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 16px 0;
+      position: relative;
+    }
+    .maestro-node-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .maestro-node.sold .maestro-node-icon {
+      background: var(--blue);
+      border-color: var(--blue);
+      font-size: 16px;
+      color: var(--white);
+      font-weight: 900;
+    }
+    .maestro-node-content { flex: 1; }
+    .maestro-node-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    .maestro-node.sold .maestro-node-label {
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .maestro-connector {
+      width: 44px;
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+      height: 20px;
+      margin: 0 auto;
+    }
+    .maestro-connector-line {
+      width: 2px;
+      height: 100%;
+      background: repeating-linear-gradient(to bottom, var(--border) 0px, var(--border) 4px, transparent 4px, transparent 8px);
+    }
+    .maestro-supporting {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin: 0 0 28px;
+    }
+    .maestro-supporting strong { color: var(--navy); }
+
+    /* ── SECTION 7 — TESTIMONIAL VIDEO ──────────────────────── */
+    .video-section { background: var(--navy) !important; }
+    .video-section .section-headline { color: var(--white); }
+    .video-section .section-subline { color: rgba(255,255,255,0.6); }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      margin: 24px 0;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-social-proof {
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+    .stars {
+      font-size: 22px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .social-proof-line {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+    }
+    .video-cta {
+      margin-top: 24px;
+    }
+    .btn-primary-solid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 18px 32px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── SECTION 8 — MARKETING PLAN ─────────────────────────── */
+    .week-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .week-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+    .week-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .week-header .week-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--blue);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .week-items {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .week-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .week-check {
+      width: 20px;
+      height: 20px;
+      background: rgba(0,200,83,0.1);
+      border: 1.5px solid var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--green);
+      flex-shrink: 0;
+      margin-top: 1px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .week-item.revealed .week-check { opacity: 1; }
+
+    /* ── SECTION 9 — WHAT HAPPENS NEXT ──────────────────────── */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 28px 0;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 20px 0;
+      position: relative;
+    }
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 64px;
+      width: 2px;
+      height: calc(100% - 44px);
+      background: repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 5px, transparent 5px, transparent 10px);
+    }
+    .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--off-white);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text-mid);
+      flex-shrink: 0;
+    }
+    .step-item:last-child .step-circle {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+      font-size: 14px;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .step-item:last-child .step-title {
+      color: var(--blue);
+      font-size: 24px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+    .steps-cta { margin-top: 8px; }
+
+    /* ── SECTION 10 — SOCIAL PROOF ───────────────────────────── */
+    .reviews-section { background: var(--off-white) !important; }
+    .stats-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: var(--navy);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .stats-banner-item {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      min-width: 100px;
+    }
+    .stats-banner-item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .stats-banner-value {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .stats-banner-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      margin-top: 3px;
+    }
+    .review-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .review-stars { font-size: 16px; margin-bottom: 10px; }
+    .review-quote {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-mid);
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .review-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .review-meta strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .review-source-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    .show-more-btn {
+      display: block;
+      text-align: center;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 28px;
+    }
+    .instagram-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .instagram-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .instagram-handle {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .instagram-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .instagram-btns a {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .instagram-btns .ig-follow {
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: var(--white);
+    }
+    .instagram-btns .ig-view {
+      background: var(--off-white);
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SECTION 11 — URGENCY ────────────────────────────────── */
+    .urgency-section { background: var(--navy) !important; }
+    .urgency-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+    .urgency-section .section-headline { color: var(--white); }
+    .urgency-section .section-subline { color: rgba(255,255,255,0.55); font-size: 12px; }
+
+    .urgency-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .urgency-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .urgency-stat-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .urgency-stat-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .urgency-stat-text strong { color: var(--white); font-weight: 700; }
+    .urgency-warning {
+      background: rgba(255,82,82,0.08);
+      border: 1px solid rgba(255,82,82,0.2);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 20px 0 28px;
+    }
+    .urgency-warning p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .urgency-warning p:last-child { margin-bottom: 0; }
+    .mortgage-rate-note {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── SECTION 12 — FINAL CTA ──────────────────────────────── */
+    .final-cta {
+      background: linear-gradient(135deg, var(--navy) 0%, #0D2040 100%) !important;
+      text-align: center;
+      padding: 80px 24px 120px !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(21,101,192,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta .section-headline {
+      color: var(--white);
+      font-size: clamp(22px, 6vw, 36px);
+      margin-bottom: 16px;
+    }
+    .final-cta .section-subline {
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin: 0 auto 12px;
+    }
+    .final-subtext {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+    }
+    .final-cta-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .final-call-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 16px;
+    }
+    .final-microcopy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .report-footer {
+      background: #060E1A;
+      padding: 48px 24px 100px;
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 6px;
+    }
+    .footer-contact {
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .footer-contact a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+    }
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin: 24px 0;
+    }
+    .disclaimers-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+    }
+    .disclaimer-block {
+      margin-bottom: 16px;
+      font-size: 11px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.3);
+    }
+    .disclaimer-block strong {
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+    }
+    .eho-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .eho-logo-placeholder {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.35);
+      flex-shrink: 0;
+    }
+    .footer-legal-line {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      margin-top: 24px;
+    }
+    .footer-legal-line a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+    }
+    .unsubscribe-line {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      margin-top: 12px;
+    }
+    .unsubscribe-line a { color: rgba(255,255,255,0.3); }
+
+    /* ── DESKTOP TWEAKS ──────────────────────────────────────── */
+    @media (min-width: 640px) {
+      :root { --section-pad: 112px 48px; }
+      .hero { padding: 40px 48px 64px; }
+      .hero-value { font-size: 88px; }
+      .hero-ctas { flex-direction: row; }
+      .hero-ctas .btn-primary { flex: 2; width: auto; }
+      .hero-ctas .btn-secondary { flex: 1; width: auto; }
+      .stat-grid { grid-template-columns: repeat(4, 1fr); }
+      .agent-stat-grid { grid-template-columns: repeat(4, 1fr); }
+      .score-badges { gap: 20px; }
+      .final-cta-btns { flex-direction: row; }
+    }
+
+    @media (min-width: 768px) {
+      .report-container { max-width: 860px; margin: 0 auto; }
+      .sean-ctas { flex-direction: row; }
+      .week-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+      .review-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ── UTILITY ─────────────────────────────────────────────── */
+    .text-center { text-align: center; }
+    .mt-24 { margin-top: 24px; }
+    .mb-0 { margin-bottom: 0; }
+    .full-width-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 18px 32px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+      margin-top: 24px;
+    }
+    .section-bottom-cta {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .section-bottom-cta-dark {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── STICKY FOOTER CTA ───────────────────────────────────── -->
+<div class="sticky-footer" id="stickyFooter">
+  <a href="tel:8052066363" class="sticky-btn sticky-btn-call">📞 Call Now</a>
+  <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="sticky-btn sticky-btn-schedule">📅 Schedule</a>
+</div>
+
+<!-- ── REPORT WRAPPER ─────────────────────────────────────── -->
+<div class="report-container">
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 1 — HERO                                        -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-badge">
+      HomeIntel Report &nbsp;·&nbsp; March 23, 2026
+    </div>
+
+    <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-bottom:14px;">Sean San Jose | CalDRE# 01884586 | eXp Realty DRE# 01878277</div>
+
+    <div style="font-size:clamp(44px,10vw,68px); font-weight:900; color:var(--white); line-height:1.15; margin-bottom:20px; letter-spacing:-1px;">Jennifer, here is what your home could be worth.</div>
+
+    <div class="hero-label">Estimated Home Value</div>
+
+    <div class="hero-value" id="heroValue" data-target="1274000">
+      $1,274,000
+    </div>
+
+    <div class="range-bar-wrap">
+      <div class="hero-range-label">Estimated range: $957,000 — $1,591,000</div>
+      <div class="range-bar">
+        <div class="range-bar-fill"></div>
+        <div class="range-bar-dot"></div>
+      </div>
+      <div class="range-bar-labels">
+        <span>$957,000</span>
+        <span>$1,591,000</span>
+      </div>
+    </div>
+
+    <div class="hero-meta-row">
+      <span class="market-badge cool">🔥 COOL MARKET</span>
+      <span class="trend-pill trend-down">↓ +8.9% vs. 90 days ago</span>
+    </div>
+
+    <div class="comp-context">Based on 3–5 active comparables in Ventura</div>
+
+    <div class="hero-ctas">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-primary">📅 Schedule Your Free Consultation</a>
+      <a href="tel:8052066363" class="btn-secondary">📞 805-206-6363</a>
+    </div>
+
+    <div class="hero-dre">
+      CalDRE# 01884586 &nbsp;·&nbsp; eXp Realty of California Inc. &nbsp;·&nbsp; DRE# 01878277<br>
+      This report is not an appraisal. Estimated values are for informational purposes only.
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 2 — PRICE TREND                                 -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="trend-section reveal">
+    <div class="section-eyebrow">Market Trend</div>
+    <div class="section-headline">Your neighborhood has been moving.</div>
+    <div class="section-subline">
+      Homes in Ventura have appreciated an average of 8.9% over the past 12 months. Your estimated value reflects that momentum.
+    </div>
+
+    <div class="trend-chart-wrap">
+      <div class="chart-container" style="height:220px;">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+
+    <div class="section-subline mb-0" style="margin-top:16px; font-size:13px;">
+      This data is sourced from recent sales in Ventura, typically reflecting activity from the past 30–90 days. Market conditions may have changed since this report was generated.
+    </div>
+
+    <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="inline-cta-link">
+      Want to know how to capture this momentum? →
+    </a>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 3 — MARKET CONDITIONS                           -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal">
+    <div class="section-eyebrow">Market Conditions</div>
+    <div class="section-headline">What the market is doing right now.</div>
+    <div class="section-subline">
+      This data is sourced from recent sales in Ventura, reflecting activity from the past 30–90 days.
+    </div>
+
+    <!-- 3A: Days on Market -->
+    <div style="margin-bottom:40px;">
+      <div style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:6px;">How fast are homes selling near you?</div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Faster markets mean more leverage — at the price point and at the table.</div>
+
+      <div class="chart-container" style="height:180px;">
+        <canvas id="domChart"></canvas>
+      </div>
+
+      
+    </div>
+
+    <!-- 3B: Price Per SqFt -->
+    <div style="margin-bottom:40px;">
+      <div style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:6px;">What's your square footage worth right now?</div>
+
+      <div class="stat-grid">
+        <div class="stat-card stat-card-below">
+          <div class="stat-number">$607</div>
+          <div class="stat-label">Your Home (Est.)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:var(--text-mid);">$722</div>
+          <div class="stat-label">Ventura Avg</div>
+        </div>
+        <div class="stat-card" style="grid-column:span 2;">
+          <div class="stat-number" style="color:var(--text-mid);">$480</div>
+          <div class="stat-label">Ventura Average</div>
+        </div>
+      </div>
+
+      <div class="ppsf-trend-row trend-down">
+        ↓ 8.9% vs. 6 months ago
+      </div>
+    </div>
+
+    <!-- 3C: Market Health Gauge -->
+    <div>
+      <div style="font-size:16px; font-weight:700; color:var(--navy); margin-bottom:6px;">Where does this market sit right now?</div>
+
+      <div class="gauge-wrap">
+        <div class="gauge-svg-wrap">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#FFB300;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#FF5252;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Background arc -->
+            <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="14" stroke-linecap="round"/>
+            <!-- Colored arc -->
+            <path d="M 20 110 A 90 90 0 0 1 200 110" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round"/>
+            <!-- Needle -->
+            <g id="gaugeNeedle" transform="rotate(27, 110, 110)">
+              <line x1="110" y1="110" x2="110" y2="30" stroke="var(--navy)" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="110" cy="110" r="8" fill="var(--navy)"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="gauge-arc-labels">
+          <span>Cold</span>
+          <span>Balanced</span>
+          <span>Hot</span>
+        </div>
+
+        <div class="gauge-label">Buyer's Market</div>
+        <div class="gauge-sublabel"> months of inventory in Ventura</div>
+        <div class="gauge-sublabel" style="margin-top:4px; font-size:12px;">Under 3 months = seller's market. Ventura is at .</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 3.5 — COMPARABLE SALES                          -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="comps-section reveal">
+    <div class="section-eyebrow">Comparable Sales</div>
+    <div class="section-headline">Homes Like Yours That Recently Sold</div>
+    <div class="section-subline">These are real sales near your address used to anchor your estimate.</div>
+    <div class="comp-card-grid"><div class="comp-card">
+      <div class="comp-address">364 Shamrock Dr, Ventura, CA 93003</div>
+      <div class="comp-price">$1,275,000</div>
+      <div class="comp-details">🛏 4 bed · 🛁 2 bath · 1,782 sqft</div>
+      <div class="comp-details">Sold Sep 25, 2025</div>
+      <div class="comp-ppsf">$715/sqft</div>
+      <div class="comp-description">Built 1956 · 7,405 sqft lot</div>
+      <a class="comp-cta" href="https://montecitoinsider.com/what-is-my-home-worth/" target="_blank" rel="noopener">Own a home on Shamrock Dr? Get your free valuation →</a>
+    </div><div class="comp-card">
+      <div class="comp-address">297 Rancho Dr, Ventura, CA 93003</div>
+      <div class="comp-price">$1,625,000</div>
+      <div class="comp-details">🛏 4 bed · 🛁 2 bath · 1,796 sqft</div>
+      <div class="comp-details">Sold Dec 9, 2025</div>
+      <div class="comp-ppsf">$905/sqft</div>
+      <div class="comp-description">Built 1951 · 6,970 sqft lot</div>
+      <a class="comp-cta" href="https://montecitoinsider.com/what-is-my-home-worth/" target="_blank" rel="noopener">Own a home on Rancho Dr? Get your free valuation →</a>
+    </div><div class="comp-card">
+      <div class="comp-address">501 Redwood Ave, Ventura, CA 93003</div>
+      <div class="comp-price">$974,999</div>
+      <div class="comp-details">🛏 4 bed · 🛁 2 bath · 1,759 sqft</div>
+      <div class="comp-details">Sold Oct 13, 2025</div>
+      <div class="comp-ppsf">$554/sqft</div>
+      <div class="comp-description">Built 1956 · 6,969 sqft lot</div>
+      <a class="comp-cta" href="https://montecitoinsider.com/what-is-my-home-worth/" target="_blank" rel="noopener">Own a home on Redwood Ave? Get your free valuation →</a>
+    </div><div class="comp-card">
+      <div class="comp-address">3179 Porter Ln, Ventura, CA 93003</div>
+      <div class="comp-price">$950,000</div>
+      <div class="comp-details">🛏 4 bed · 🛁 2 bath · 1,725 sqft</div>
+      <div class="comp-details">Sold Feb 18, 2026</div>
+      <div class="comp-ppsf">$551/sqft</div>
+      <div class="comp-description">Built 1955 · 6,098 sqft lot</div>
+      <a class="comp-cta" href="https://montecitoinsider.com/what-is-my-home-worth/" target="_blank" rel="noopener">Own a home on Porter Ln? Get your free valuation →</a>
+    </div><div class="comp-card">
+      <div class="comp-address">2800 Bayshore Ave, Ventura, CA 93001</div>
+      <div class="comp-price">$2,050,000</div>
+      <div class="comp-details">🛏 4 bed · 🛁 2 bath · 2,314 sqft</div>
+      <div class="comp-details">Sold Feb 19, 2026</div>
+      <div class="comp-ppsf">$886/sqft</div>
+      <div class="comp-description">Built 1976 · 4,356 sqft lot</div>
+      <a class="comp-cta" href="https://montecitoinsider.com/what-is-my-home-worth/" target="_blank" rel="noopener">Own a home on Bayshore Ave? Get your free valuation →</a>
+    </div></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 3.7 — PHOTO UPLOAD                              -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal" id="photo-upload-section" style="background:#F8F9FB;padding:60px 24px;">
+    <div style="max-width:600px;margin:0 auto;text-align:center;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#1565C0;margin-bottom:10px;">Upgrade Your Estimate</div>
+      <div style="font-size:28px;font-weight:900;color:#0A1628;letter-spacing:-0.5px;margin-bottom:10px;">Want a More Accurate Estimate?</div>
+      <div style="font-size:16px;color:#546E7A;margin-bottom:32px;line-height:1.6;">Upload photos of your home and we will analyze your upgrades.</div>
+
+      <!-- Category icons -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:28px;">
+        <div class="photo-cat-btn" data-cat="Kitchen"     onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">🍳</span><span>Kitchen</span>
+        </div>
+        <div class="photo-cat-btn" data-cat="Bathrooms"   onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">🚿</span><span>Bathrooms</span>
+        </div>
+        <div class="photo-cat-btn" data-cat="Living Areas" onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">🛋️</span><span>Living Areas</span>
+        </div>
+        <div class="photo-cat-btn" data-cat="Exterior"   onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">🏡</span><span>Exterior</span>
+        </div>
+        <div class="photo-cat-btn" data-cat="Yard"       onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">🌿</span><span>Yard</span>
+        </div>
+        <div class="photo-cat-btn" data-cat="Other"      onclick="photoSetCat(this)" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid #E3E8EF;border-radius:10px;cursor:pointer;font-size:12px;color:#546E7A;background:#fff;transition:all .18s;min-width:72px;">
+          <span style="font-size:22px;">📷</span><span>Other</span>
+        </div>
+      </div>
+
+      <!-- Drop zone -->
+      <div id="photoDropZone"
+           onclick="document.getElementById('photoFileInput').click()"
+           ondragover="event.preventDefault();this.style.borderColor='#1565C0';this.style.background='#EBF3FF';"
+           ondragleave="this.style.borderColor='#C5D3E0';this.style.background='#fff';"
+           ondrop="photoDrop(event)"
+           style="border:2px dashed #C5D3E0;border-radius:16px;padding:40px 24px;cursor:pointer;background:#fff;transition:all .18s;margin-bottom:16px;">
+        <div style="font-size:36px;margin-bottom:8px;">📤</div>
+        <div style="font-weight:700;color:#0A1628;margin-bottom:4px;">Drag &amp; drop photos here</div>
+        <div style="font-size:13px;color:#90A4AE;">or click to browse &nbsp;·&nbsp; Upload up to 10 photos</div>
+        <input id="photoFileInput" type="file" accept="image/*" multiple style="display:none;" onchange="photoFilePicked(event)" />
+      </div>
+
+      <!-- Thumbnail preview grid -->
+      <div id="photoThumbGrid" style="display:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-bottom:20px;text-align:left;"></div>
+
+      <!-- Submit -->
+      <button id="photoSubmitBtn" onclick="photoSubmit()"
+              style="display:none;width:100%;max-width:320px;padding:14px 24px;background:linear-gradient(135deg,#1565C0,#1976D2);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:10px;cursor:pointer;letter-spacing:0.3px;box-shadow:0 4px 16px rgba(21,101,192,0.3);">
+        Submit Photos for Analysis
+      </button>
+
+      <!-- Confirmation -->
+      <div id="photoConfirmMsg" style="display:none;padding:20px;background:#E8F5E9;border-radius:12px;border:1px solid #A5D6A7;">
+        <div style="font-size:18px;font-weight:700;color:#2E7D32;margin-bottom:6px;">✅ Photos received!</div>
+        <div style="font-size:14px;color:#388E3C;line-height:1.6;">Sean will review your upgrades and provide a personalized value adjustment within 24 hours.</div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .photo-cat-btn:hover, .photo-cat-btn.active {
+      border-color: #1565C0 !important;
+      background: #EBF3FF !important;
+      color: #1565C0 !important;
+    }
+  </style>
+  <script>
+    (function() {
+      var selectedFiles = [];
+      var selectedCat = 'Other';
+
+      window.photoSetCat = function(el) {
+        document.querySelectorAll('.photo-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+        el.classList.add('active');
+        selectedCat = el.getAttribute('data-cat');
+      };
+
+      window.photoDrop = function(e) {
+        e.preventDefault();
+        var dz = document.getElementById('photoDropZone');
+        dz.style.borderColor = '#C5D3E0';
+        dz.style.background = '#fff';
+        addFiles(Array.from(e.dataTransfer.files));
+      };
+
+      window.photoFilePicked = function(e) {
+        addFiles(Array.from(e.target.files));
+      };
+
+      function addFiles(files) {
+        var imgs = files.filter(function(f) { return f.type.startsWith('image/'); });
+        imgs.forEach(function(f) {
+          if (selectedFiles.length < 10) selectedFiles.push(f);
+        });
+        renderThumbs();
+      }
+
+      function renderThumbs() {
+        var grid = document.getElementById('photoThumbGrid');
+        var btn  = document.getElementById('photoSubmitBtn');
+        grid.innerHTML = '';
+        if (selectedFiles.length === 0) {
+          grid.style.display = 'none';
+          btn.style.display  = 'none';
+          return;
+        }
+        grid.style.display = 'grid';
+        btn.style.display  = 'block';
+        selectedFiles.forEach(function(f, i) {
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            var wrap = document.createElement('div');
+            wrap.style.cssText = 'position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#E3E8EF;';
+            var img = document.createElement('img');
+            img.src = ev.target.result;
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+            var rm = document.createElement('div');
+            rm.innerHTML = '✕';
+            rm.style.cssText = 'position:absolute;top:4px;right:4px;width:20px;height:20px;background:rgba(0,0,0,.55);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;';
+            rm.onclick = function(ev) { ev.stopPropagation(); selectedFiles.splice(i,1); renderThumbs(); };
+            wrap.appendChild(img);
+            wrap.appendChild(rm);
+            grid.appendChild(wrap);
+          };
+          reader.readAsDataURL(f);
+        });
+      }
+
+      window.photoSubmit = function() {
+        if (selectedFiles.length === 0) return;
+        var btn = document.getElementById('photoSubmitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Uploading…';
+
+        var form = new FormData();
+        form.append('contactId', '');
+        form.append('category', selectedCat);
+        selectedFiles.forEach(function(f) { form.append('photos', f); });
+
+        var uploadUrl = '' !== '' ? '' : '/api/upload-photos';
+
+        fetch(uploadUrl, { method: 'POST', body: form })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.success) {
+              document.getElementById('photoDropZone').style.display = 'none';
+              document.getElementById('photoThumbGrid').style.display = 'none';
+              btn.style.display = 'none';
+              document.getElementById('photoConfirmMsg').style.display = 'block';
+            } else {
+              btn.disabled = false;
+              btn.textContent = 'Submit Photos for Analysis';
+              alert('Upload failed: ' + (data.error || 'Unknown error'));
+            }
+          })
+          .catch(function(err) {
+            btn.disabled = false;
+            btn.textContent = 'Submit Photos for Analysis';
+            alert('Upload error: ' + err.message);
+          });
+      };
+    })();
+  </script>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 4 — NEIGHBORHOOD                                -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal">
+    <div class="section-eyebrow">Your Neighborhood</div>
+    <div class="section-headline">Location doesn't just affect where you live. It affects what you can get for your home.</div>
+
+    <div class="map-wrap">
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center=34.2764083,-119.2481802&zoom=14&size=640x400&maptype=roadmap&markers=color:red%7C34.2764083,-119.2481802&style=feature:poi%7Cvisibility:simplified&key=AIzaSyBwXTKIAPNoBKUM3Gf4s9TdU-o77MqETIE" alt="Map of 176 N Mills Rd, Ventura, CA 93003" style="width:100%;border-radius:16px;max-width:640px;display:block;margin:0 auto;" onerror="this.style.display='none';var fb=this.nextElementSibling;if(fb)fb.style.display='flex';" /><div style="display:none;width:100%;max-width:640px;margin:0 auto;border-radius:16px;aspect-ratio:16/9;background:#e5e8ef;align-items:center;justify-content:center;color:#78909C;font-size:14px;font-weight:500;">📍 Map unavailable — address verified</div>
+    </div>
+
+    <div class="map-tagline">
+      <strong>176 N Mills Rd, Ventura, CA 93003</strong> sits within 10 minutes of top-rated dining, parks and recreation, and highly-rated schools.
+    </div>
+
+    <!-- Walk / Bike / Transit Score Badges -->
+    <div class="score-badges" style="margin-top:28px;">
+      <div class="score-badge">
+        <div class="score-type">Walk</div>
+        <div class="score-ring-wrap">
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <circle cx="35" cy="35" r="28" fill="none" stroke="#E3E8EF" stroke-width="7"/>
+            <circle cx="35" cy="35" r="28" fill="none"
+              stroke="#FFC107" stroke-width="7"
+              stroke-dasharray="120 176"
+              stroke-linecap="round"/>
+          </svg>
+          <div class="score-number-overlay">68</div>
+        </div>
+        <div class="score-sub-label">Somewhat Walkable</div>
+      </div>
+      <div class="score-badge">
+        <div class="score-type">Bike</div>
+        <div class="score-ring-wrap">
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <circle cx="35" cy="35" r="28" fill="none" stroke="#E3E8EF" stroke-width="7"/>
+            <circle cx="35" cy="35" r="28" fill="none"
+              stroke="#FFC107" stroke-width="7"
+              stroke-dasharray="92 176"
+              stroke-linecap="round"/>
+          </svg>
+          <div class="score-number-overlay">52</div>
+        </div>
+        <div class="score-sub-label">Bikeable</div>
+      </div>
+      <div class="score-badge">
+        <div class="score-type">Transit</div>
+        <div class="score-ring-wrap">
+          <svg width="70" height="70" viewBox="0 0 70 70">
+            <circle cx="35" cy="35" r="28" fill="none" stroke="#E3E8EF" stroke-width="7"/>
+            <circle cx="35" cy="35" r="28" fill="none"
+              stroke="#FF5722" stroke-width="7"
+              stroke-dasharray="67 176"
+              stroke-linecap="round"/>
+          </svg>
+          <div class="score-number-overlay">38</div>
+        </div>
+        <div class="score-sub-label">Some Transit</div>
+      </div>
+    </div>
+
+    <div class="walk-score-disclaimer">
+      Walk Score®, Bike Score®, and Transit Score® are registered trademarks of Walk Score. Data provided by Walk Score (walkscore.com) and used under license. Scores are for informational purposes only and do not constitute a recommendation regarding any specific property transaction.
+    </div>
+
+    
+    <div style="margin-top:28px;">
+      <div style="margin-top:28px; text-align:center;">
+        <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#1565C0; margin-bottom:10px;">🏫 Schools</div>
+        <table style="width:100%; max-width:520px; margin:0 auto; border-collapse:collapse;">
+          <thead><tr style="border-bottom:2px solid #E3E8EF;">
+            <th style="padding:8px 12px; text-align:left; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Name</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Distance</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Level</th>
+          </tr></thead>
+          <tbody><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;"><a href="https://www.greatschools.org/search/search.page?q=Saint%20Bonaventure%20High%20School%20Ventura%20CA" target="_blank" rel="noopener" style="color:#1565C0;text-decoration:none;font-weight:500;">Saint Bonaventure High School</a></td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.4 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#90CAF9;font-size:12px;">High School</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;"><a href="https://www.greatschools.org/search/search.page?q=Anacapa%20Middle%20School%20Ventura%20CA" target="_blank" rel="noopener" style="color:#1565C0;text-decoration:none;font-weight:500;">Anacapa Middle School</a></td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.3 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#90CAF9;font-size:12px;">Middle School</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;"><a href="https://www.greatschools.org/search/search.page?q=Loma%20Vista%20Elementary%20School%20Ventura%20CA" target="_blank" rel="noopener" style="color:#1565C0;text-decoration:none;font-weight:500;">Loma Vista Elementary School</a></td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.2 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#90CAF9;font-size:12px;">Elementary School</span></td>
+      </tr></tbody>
+        </table>
+        <div style="margin-top:8px;font-size:11px;color:#90A4AE;text-align:center;">School ratings available at <a href="https://www.greatschools.org" target="_blank" rel="noopener" style="color:#1565C0;">GreatSchools.org</a></div>
+      </div>
+    
+      <div style="margin-top:28px; text-align:center;">
+        <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#1565C0; margin-bottom:10px;">🌳 Parks</div>
+        <table style="width:100%; max-width:520px; margin:0 auto; border-collapse:collapse;">
+          <thead><tr style="border-bottom:2px solid #E3E8EF;">
+            <th style="padding:8px 12px; text-align:left; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Name</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Distance</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Rating</th>
+          </tr></thead>
+          <tbody><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Camino Real Park</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.9 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.6</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Blanche Reynolds Park</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.8 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.5</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Dog Park - Camino Real</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.9 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.3</span></td>
+      </tr></tbody>
+        </table>
+        
+      </div>
+    
+      <div style="margin-top:28px; text-align:center;">
+        <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#1565C0; margin-bottom:10px;">🍽️ Restaurants</div>
+        <table style="width:100%; max-width:520px; margin:0 auto; border-collapse:collapse;">
+          <thead><tr style="border-bottom:2px solid #E3E8EF;">
+            <th style="padding:8px 12px; text-align:left; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Name</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Distance</th>
+            <th style="padding:8px 12px; text-align:center; font-weight:600; color:#78909C; font-size:12px; text-transform:uppercase; letter-spacing:0.8px;">Rating</th>
+          </tr></thead>
+          <tbody><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Wood Ranch</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.7 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.4</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Café Ficelle</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.5 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.4</span></td>
+      </tr><tr style="border-bottom:1px solid #E3E8EF;">
+        <td style="padding:10px 12px;font-size:14px;color:#0A1628;">Denny's Restaurant</td>
+        <td style="padding:10px 12px;font-size:14px;color:#78909C;text-align:center;">0.5 mi</td>
+        <td style="padding:10px 12px;font-size:14px;text-align:center;"><span style="color:#C9A84C;font-weight:600;">★ 4.3</span></td>
+      </tr></tbody>
+        </table>
+        
+      </div>
+    </div>
+    
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- CTA MOMENT 1 — After Data, Before Pitch                 -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="cta-interstitial reveal">
+    <div class="section-headline" style="font-size:clamp(20px,5vw,28px); margin-bottom:10px;">The data tells the story. Sean closes it.</div>
+    <div class="section-subline">Ready to talk about what this means for your home?</div>
+    <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-white">📅 Schedule Your Free Consultation</a>
+    <a href="tel:8052066363" class="btn-call">📞 Or call directly: 805-206-6363</a>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 5 — MEET SEAN                                   -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="sean-section reveal">
+    <div class="section-eyebrow">Your Agent</div>
+    <div class="section-headline">You're not getting a report. You're getting a partner.</div>
+
+    <div class="sean-photo-wrap">
+      <img src='/sean-headshot.jpg' alt='Sean San Jose' style='width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid #1565C0;' onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="sean-initials-avatar" style="display:none">SS</div>
+    </div>
+
+    <div class="sean-bio">
+      I've been in real estate since 2010 — not because I fell into it, but because I knew at 14 this is what I was meant to do. I've spent 16 years learning what it actually takes to get a home sold at the right price, in the right timeline, for the right reasons. When you work with me, you're not getting someone who posts your listing and waits — you're getting someone who has a plan, works the plan, and fights for your number.
+    </div>
+
+    <div class="agent-stat-grid">
+      <div class="agent-stat-card">
+        <div class="agent-stat-value">Since 2010</div>
+        <div class="agent-stat-desc">Licensed &amp; active</div>
+      </div>
+      <div class="agent-stat-card">
+        <div class="agent-stat-value">1,367+</div>
+        <div class="agent-stat-desc">Contacts</div>
+      </div>
+      <div class="agent-stat-card">
+        <div class="agent-stat-value">Ventura County</div>
+        <div class="agent-stat-desc">Expert</div>
+      </div>
+    </div>
+
+    <div class="differentiator-copy">
+      <strong>Sean doesn't just list homes.</strong> He activates a marketing machine that puts your property in front of thousands of qualified buyers across YouTube, Meta, email, and search — before most agents have even taken photos.<br><br>
+      The result: more eyes, stronger offers, and a close that happens on your terms.
+    </div>
+
+    <div class="section-bottom-cta-dark">
+      <div class="sean-ctas">
+        <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-primary">📅 Schedule a Free Consultation</a>
+        <a href="tel:8052066363" class="btn-white-outline">📞 Call Sean: 805-206-6363</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 6 — THE MAESTRO SYSTEM                          -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal">
+    <div class="section-eyebrow">The System</div>
+    <div class="section-headline">This is what a modern listing looks like.</div>
+    <div class="section-subline">Other agents list your home. Sean San Jose launches it.</div>
+
+    <div class="maestro-flow">
+      <div class="maestro-node">
+        <div class="maestro-node-icon">🏠</div>
+        <div class="maestro-connector" style="display:none;"></div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Your Home</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">📸</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Professional Photography + Drone Video</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">✍️</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">AI-Optimized Listing Copy</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">🏡</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">MLS + Zillow + Redfin + Realtor.com</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">▶️</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">YouTube Video Campaign</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">📱</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Meta Targeted Ads</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">📧</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Email — 1,367+ Network Contacts</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">🚪</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Open House Strategy</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node">
+        <div class="maestro-node-icon">📋</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">Offer Management</div>
+        </div>
+      </div>
+      <div style="display:flex;"><div style="width:44px;display:flex;justify-content:center;"><div style="width:2px;height:20px;background:repeating-linear-gradient(to bottom,#E3E8EF 0,#E3E8EF 4px,transparent 4px,transparent 8px);"></div></div></div>
+      <div class="maestro-node sold">
+        <div class="maestro-node-icon">SOLD</div>
+        <div class="maestro-node-content">
+          <div class="maestro-node-label">SOLD</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="maestro-supporting">
+      While other agents post on Zillow and wait, <strong>Sean San Jose runs a full-stack marketing campaign from day one.</strong><br><br>
+      More exposure. More qualified buyers. Better price. Faster close.<br><br>
+      This is the system. This is why it works.
+    </div>
+
+    <div class="section-bottom-cta">
+      <a href="#testimonials" class="inline-cta-link">See the results →</a>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 7 — TESTIMONIAL VIDEO                           -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="video-section reveal" id="testimonials">
+    <div class="section-eyebrow">Social Proof</div>
+    <div class="section-headline">Don't take our word for it.</div>
+    <div class="section-subline">A past client. Their words. No script. No compensation was provided for this testimonial.</div>
+
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/3oXBtCdVeE4?rel=0&start=4"
+        title="Sean San Jose — Client Testimonial"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="video-social-proof">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="social-proof-line">Join 100+ homeowners who trusted Sean with their most valuable asset.</div>
+    </div>
+
+    <div class="video-cta">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-primary-solid">📅 Schedule Your Free Consultation</a>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 8 — MARKETING PLAN PREVIEW                      -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal" id="marketingPlan">
+    <div class="section-eyebrow">The Plan</div>
+    <div class="section-headline">Here's what happens when you list with Sean.</div>
+    <div class="section-subline">Not a promise. A plan. Week by week, from live to sold.</div>
+
+    <div class="week-cards" id="weekCards">
+      <!-- Week 1 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-icon">1</div>
+          Week 1 — Launch
+        </div>
+        <div class="week-items">
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Professional photography + drone footage scheduled and completed</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Listing live on MLS, Zillow, Redfin, and Realtor.com</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>AI-optimized listing copy written and published</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>YouTube ad campaign activated — targeting buyers in Ventura and surrounding areas</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Meta ads live — reaching qualified buyers based on home search behavior</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weeks 1-2 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-icon">2</div>
+          Weeks 1–2 — Amplify
+        </div>
+        <div class="week-items">
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Email blast to 1,367+ qualified contacts in Sean's network</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Open house promoted across social media and paid ads</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Showing feedback collected — price positioning reviewed</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Market activity monitored daily — strategy adjusted if needed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 2+ -->
+      <div class="week-card">
+        <div class="week-header" style="background:var(--blue);">
+          <div class="week-icon" style="background:rgba(255,255,255,0.2);">✓</div>
+          Week 2+ — Close
+        </div>
+        <div class="week-items">
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Offers reviewed and negotiation strategy executed</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Best terms secured — price, timeline, and conditions</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Escrow opened and managed through to close</span>
+          </div>
+          <div class="week-item">
+            <div class="week-check">✓</div>
+            <span>Keys handed over — on your terms, on your timeline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 9 — WHAT HAPPENS NEXT                           -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reveal">
+    <div class="section-eyebrow">Next Steps</div>
+    <div class="section-headline">The path to sold. It's simpler than you think.</div>
+    <div class="section-subline">Four steps. No pressure. No surprises.</div>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-circle">1</div>
+        <div class="step-content">
+          <div class="step-title">Schedule a Call</div>
+          <div class="step-desc">15 minutes. No pressure. Just a conversation about your home and your goals.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">2</div>
+        <div class="step-content">
+          <div class="step-title">Get Your Strategy</div>
+          <div class="step-desc">Sean builds a custom plan for your property — pricing, timeline, marketing approach.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">3</div>
+        <div class="step-content">
+          <div class="step-title">List with Confidence</div>
+          <div class="step-desc">Sean San Jose's full marketing system activates. Your home goes live with full marketing behind it from day one.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">SOLD</div>
+        <div class="step-content">
+          <div class="step-title">SOLD</div>
+          <div class="step-desc">On your terms. On your timeline. With the number you deserve.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-cta">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="full-width-btn">📅 Schedule Your Free Consultation — Takes 15 Minutes</a>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 10 — SOCIAL PROOF                               -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="reviews-section reveal">
+    <div class="section-eyebrow">Reviews</div>
+    <div class="section-headline">Results from real clients. Real numbers. Real Ventura.</div>
+
+    <div class="stats-banner">
+      <div class="stats-banner-item">
+        <div class="stats-banner-value">⭐ 5.0</div>
+        <div class="stats-banner-label">Average Rating</div>
+      </div>
+      <div class="stats-banner-item">
+        <div class="stats-banner-value">100+</div>
+        <div class="stats-banner-label">Verified Reviews</div>
+      </div>
+      <div class="stats-banner-item">
+        <div class="stats-banner-value">16 Yrs</div>
+        <div class="stats-banner-label">In the Market</div>
+      </div>
+    </div>
+
+    <div class="review-cards">
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-quote">"Sean had three offers on our home within the first week. We were nervous about the market — he wasn't. He knew exactly what to do and exactly when to do it."</div>
+        <div class="review-meta"><strong>[Client Name]</strong> · Ventura</div>
+        <div class="review-source-badge">✓ Verified Google Review</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">Individual results may vary.</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-quote">"We interviewed four agents. Sean was the only one who came in with an actual marketing plan. The others just told us what they thought we wanted to hear."</div>
+        <div class="review-meta"><strong>[Client Name]</strong> · Ventura Area</div>
+        <div class="review-source-badge">✓ Verified Zillow Review</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">Individual results may vary.</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-quote">"He negotiated us into a position we didn't think was possible in this market. The number we got — we're still talking about it."</div>
+        <div class="review-meta"><strong>[Client Name]</strong> · Ventura County</div>
+        <div class="review-source-badge">✓ Verified Google Review</div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:6px;">Individual results may vary.</div>
+      </div>
+    </div>
+
+    <a href="https://www.google.com/search?q=Sean+San+Jose+eXp+Realty+reviews" class="show-more-btn" target="_blank" rel="noopener">
+      See all reviews →
+    </a>
+
+    <div class="instagram-block">
+      <div class="instagram-label">Follow the journey.</div>
+      <div class="instagram-handle">@seansellshomez</div>
+      <div class="instagram-btns">
+        <a href="https://instagram.com/seansellshomez" class="ig-follow" target="_blank" rel="noopener">Follow on Instagram</a>
+        <a href="https://instagram.com/seansellshomez" class="ig-view" target="_blank" rel="noopener">View Posts</a>
+      </div>
+    </div>
+
+    <div class="section-bottom-cta">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="full-width-btn">📅 Schedule Your Free Consultation</a>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 11 — WHY ACT NOW / URGENCY                      -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="urgency-section reveal">
+    <div class="section-eyebrow">Market Timing</div>
+    <div class="section-headline">The market doesn't wait.</div>
+    <div class="section-subline">
+      These numbers reflect recent market activity in Ventura, sourced from MLS data and third-party providers. Data is current as of the report generation date.
+    </div>
+
+    <div class="urgency-stats">
+      <div class="urgency-stat-row">
+        <div class="urgency-stat-icon">🏠</div>
+        <div class="urgency-stat-text"><strong>14 homes sold</strong> in Ventura in the last 30 days.</div>
+      </div>
+      <div class="urgency-stat-row">
+        <div class="urgency-stat-icon">⏱</div>
+        <div class="urgency-stat-text">Average time on market: <strong>64 days</strong> — meaning sellers are closing in under 10 weeks.</div>
+      </div>
+      <div class="urgency-stat-row">
+        <div class="urgency-stat-icon">📊</div>
+        <div class="urgency-stat-text">Current mortgage rates at <strong>6.36%</strong>* — qualified buyers are actively searching and motivated to close.</div>
+      </div>
+      <div class="urgency-stat-row">
+        <div class="urgency-stat-icon">🔍</div>
+        <div class="urgency-stat-text">Buyers have been actively searching for homes in <strong>Ventura</strong> based on current search and inquiry trends.</div>
+      </div>
+    </div>
+
+    <div class="urgency-warning">
+      <p>Every month you wait is a month of appreciation you don't capture — and a month of holding costs you keep paying.</p>
+      <p>The data above isn't designed to pressure you. It's designed to inform you. What you do with it is your call.</p>
+      <p>But if the numbers are moving in your favor right now — that's worth a 15-minute conversation.</p>
+    </div>
+
+    <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-primary-solid">📅 Let's Talk — Schedule Your Free Consultation</a>
+
+    <div class="mortgage-rate-note">
+      *Rate data sourced from Freddie Mac Primary Mortgage Market Survey as of report generation date. Rates are subject to daily change and individual borrower qualification.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- SECTION 12 — FINAL CTA (FULL-SCREEN CLOSE)              -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <section class="final-cta reveal">
+    <div class="section-headline">You've seen the data. You've seen the system. You've seen the results.</div>
+    <div class="section-subline">The only thing left is the conversation.</div>
+    <div class="final-subtext">
+      Sean works with a select number of sellers in Ventura at a time. If you're thinking about selling in the next 3–12 months, now is the right time to get your strategy in place.
+    </div>
+
+    <div class="final-cta-btns">
+      <a href="https://api.leadconnectorhq.com/widget/booking/jRMDhqpY5geqZCLYoqoQ" class="btn-primary" style="flex:1; max-width:360px;">📅 Schedule Your Free Consultation</a>
+      <a href="tel:8052066363" class="final-call-link">📞 Or call: 805-206-6363</a>
+    </div>
+
+    <div class="final-microcopy">No commitment. No pressure. Just answers.</div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── -->
+  <!-- FOOTER                                                  -->
+  <!-- ──────────────────────────────────────────────────────── -->
+  <footer class="report-footer">
+    <div class="footer-logo">
+      <img src="/assets/brand/exp-logo-white.png" alt="eXp Realty" style="height:28px;margin-bottom:8px;display:block;">
+      HomeIntel Report &nbsp;|&nbsp; Sean San Jose &nbsp;|&nbsp; <span style='font-weight:600;letter-spacing:1px;'>eXp Realty</span> of California, Inc.
+    </div>
+    <div class="footer-contact">
+      Sean San Jose &nbsp;·&nbsp; CalDRE# 01884586<br>
+      eXp Realty of California Inc. &nbsp;·&nbsp; CalDRE# 01878277<br>
+      <a href="tel:8052066363">📞 805-206-6363</a> &nbsp;·&nbsp; @seansellshomez<br>
+      eXp Realty of California, Inc., 2603 Camino Ramon, Suite 200, San Ramon, CA 94583
+    </div>
+
+    <div class="eho-block">
+      <div class="eho-logo-placeholder">[Equal Housing Opportunity]</div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3);"><!-- Replace with NAR/HUD-approved EHO logo graphic --></div>
+    </div>
+
+    <hr class="footer-divider" />
+
+    <div class="disclaimers-header">Important Disclosures</div>
+
+    <div class="disclaimer-block">
+      <strong>Not an Appraisal.</strong> This HomeIntel report is not an appraisal and does not constitute a professional appraisal of your property. The estimated value range is generated using publicly available data, comparable sales, and automated valuation modeling (AVM). It is provided for informational purposes only. For an accurate assessment of your home's value, consult a licensed real estate appraiser.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Not a Guarantee of Sale Price.</strong> The estimated value and price range shown in this report are not a guarantee of sale price, listing price, or offer price. Actual market value may differ based on property condition, upgrades, local market conditions, buyer demand, and other factors that automated models cannot fully assess.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Market Data Accuracy &amp; Timeliness.</strong> Market data, including days on market, median sold prices, price per square foot, and market condition indicators, is sourced from publicly available MLS records and third-party data providers, which may include Redfin, Zillow, Realtor.com, and county assessor records. This report is not affiliated with, endorsed by, or sponsored by any third-party data provider. Data is believed to be accurate as of the report generation date but may not reflect the most current market conditions. Real estate markets can change rapidly. Past performance does not guarantee future results.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Fair Housing.</strong> Sean San Jose and eXp Realty of California Inc. are committed to the Fair Housing Act. We do not discriminate against any person because of race, color, religion, sex, national origin, disability, familial status, or any other class protected by law. All services are provided equally to all clients and customers.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Walk Score® / Third-Party Scores.</strong> Walk Score®, Bike Score®, and Transit Score® are registered trademarks of Walk Score. Data is provided by Walk Score (walkscore.com) and used under license. Walk Score and its affiliates are not responsible for the accuracy of scores or their applicability to any specific property transaction.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Brokerage Disclosure.</strong> Sean San Jose | CalDRE# 01884586. eXp Realty of California Inc. | CalDRE# 01878277. This communication is from a licensed real estate broker. If your property is currently listed with a real estate broker, please disregard this report. It is not our intention to solicit the offerings of other real estate brokers.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>Testimonials Disclosure.</strong> Client testimonials and reviews reflect individual experiences and may not represent typical results. Results may vary based on market conditions, property type, location, pricing, and other factors.
+    </div>
+
+    <div class="disclaimer-block">
+      <strong>AI / Automated System Disclosure.</strong> This HomeIntel report is generated using artificial intelligence and automated valuation modeling (AVM). The estimated value, market data, and comparable sales analysis are produced by automated systems and have not been individually reviewed by a licensed real estate agent or appraiser prior to delivery. Sean San Jose's marketing system also uses AI and automated tools to optimize listing copy, ad targeting, and buyer outreach. All final decisions regarding pricing, strategy, and negotiations are made by Sean San Jose, CalDRE# 01884586, a licensed California real estate agent, in consultation with the client.
+    </div>
+
+    <hr class="footer-divider" />
+
+    <div class="unsubscribe-line">
+      You are receiving this HomeIntel report because you requested a home value estimate. To unsubscribe from future emails, <a href="#">click here</a> or reply STOP to any SMS message. You may also opt out by contacting us at the address above.
+    </div>
+
+    <div class="footer-legal-line">
+      © 2026 Sean San Jose. All rights reserved. &nbsp;·&nbsp;
+      <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="#">Terms of Use</a>
+    </div>
+  </footer>
+
+</div><!-- end report-container -->
+
+<!-- ── CHART DATA (injected by generator) ────────────────────── -->
+<script>
+  const TREND_DATA   = {"labels":["Apr 25","May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26"],"neighborhood":[1134961,1144126,1153292,1162457,1171622,1180788,1189953,1199119,1208284,1217449,1226615,1235780],"home":[1170063,1179512,1188961,1198409,1207858,1217307,1226756,1236205,1245654,1255102,1264551,1274000]};
+  const DOM_DATA     = {"labels":["Ventura","County Avg","CA Avg","National"],"values":[64,70,83,25]};
+  const PPSF_DATA    = {"labels":["Your Home","Ventura Avg","County Avg"],"values":[607,722,480]};
+</script>
+
+<!-- ── CHARTS & ANIMATIONS ───────────────────────────────────── -->
+<script>
+(function() {
+  'use strict';
+
+  // ── Count-Up Animation ────────────────────────────────────
+  function countUp(el, targetStr, duration) {
+    // Strip $, commas → number
+    var raw = targetStr.replace(/[^0-9]/g, '');
+    var target = parseInt(raw, 10);
+    if (!target || isNaN(target)) return;
+    var start = performance.now();
+    function tick(now) {
+      var elapsed = (now - start) / duration;
+      var progress = Math.min(elapsed, 1);
+      // Cubic ease-out
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(eased * target);
+      el.textContent = '$' + current.toLocaleString('en-US');
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Run count-up on load
+  window.addEventListener('load', function() {
+    var el = document.getElementById('heroValue');
+    if (el && el.dataset.target) {
+      el.textContent = '$0';
+      setTimeout(function() { countUp(el, el.dataset.target, 1400); }, 400);
+    }
+  });
+
+  // ── Intersection Observer for scroll reveals ──────────────
+  var revealEls = document.querySelectorAll('.reveal, .reveal-fast');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el) { observer.observe(el); });
+  } else {
+    revealEls.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // ── Animate checkmarks when marketing plan enters view ───
+  var weekCardsEl = document.getElementById('weekCards');
+  if (weekCardsEl && 'IntersectionObserver' in window) {
+    var planObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        var items = weekCardsEl.querySelectorAll('.week-item');
+        items.forEach(function(item, i) {
+          setTimeout(function() {
+            item.classList.add('revealed');
+          }, i * 100);
+        });
+        planObserver.unobserve(weekCardsEl);
+      }
+    }, { threshold: 0.2 });
+    planObserver.observe(weekCardsEl);
+  }
+
+  // ── 75% scroll depth CTA nudge ───────────────────────────
+  var nudgeShown = false;
+  window.addEventListener('scroll', function() {
+    if (nudgeShown) return;
+    var scrollPct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if (scrollPct >= 0.75) {
+      nudgeShown = true;
+      var nudge = document.createElement('div');
+      nudge.style.cssText = [
+        'position:fixed', 'bottom:100px', 'left:16px', 'right:16px',
+        'background:#0A1628', 'border:1px solid rgba(255,255,255,0.15)',
+        'border-radius:12px', 'padding:16px 20px',
+        'display:flex', 'align-items:center', 'justify-content:space-between',
+        'z-index:999', 'box-shadow:0 4px 24px rgba(0,0,0,0.4)',
+        'animation:slideUp 0.3s ease'
+      ].join(';');
+
+      var style = document.createElement('style');
+      style.textContent = '@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}';
+      document.head.appendChild(style);
+
+      nudge.innerHTML = '<div style="color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;">Ready to talk? It takes 15 minutes.</div><div style="display:flex;gap:8px;"><a href="tel:8052066363" style="padding:8px 12px;background:rgba(255,255,255,0.1);color:#fff;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,0.2);">Call</a><a href="#" style="padding:8px 14px;background:#1565C0;color:#fff;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Schedule</a><button onclick="this.parentElement.parentElement.remove()" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;padding:0 4px;">×</button></div>';
+      document.body.appendChild(nudge);
+      setTimeout(function() { if (nudge.parentElement) nudge.remove(); }, 8000);
+    }
+  });
+
+  // ── Charts (wait for Chart.js to load) ───────────────────
+  function initCharts() {
+    if (typeof Chart === 'undefined') {
+      setTimeout(initCharts, 100);
+      return;
+    }
+
+    Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+    Chart.defaults.color = 'rgba(255,255,255,0.5)';
+
+    // ── 12-Month Price Trend ────────────────────────────────
+    var trendCtx = document.getElementById('trendChart');
+    if (trendCtx && TREND_DATA) {
+      new Chart(trendCtx, {
+        type: 'line',
+        data: {
+          labels: TREND_DATA.labels,
+          datasets: [
+            {
+              label: 'Neighborhood Median',
+              data: TREND_DATA.neighborhood,
+              borderColor: 'rgba(255,255,255,0.35)',
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderWidth: 2,
+              fill: false,
+              tension: 0.4,
+              pointRadius: 3,
+              pointHoverRadius: 6,
+            },
+            {
+              label: 'Your Home',
+              data: TREND_DATA.home,
+              borderColor: '#1565C0',
+              backgroundColor: function(ctx) {
+                var chart = ctx.chart;
+                var c = chart.ctx;
+                var grad = c.createLinearGradient(0, 0, 0, chart.height);
+                grad.addColorStop(0, 'rgba(21,101,192,0.3)');
+                grad.addColorStop(1, 'rgba(21,101,192,0.02)');
+                return grad;
+              },
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 4,
+              pointBackgroundColor: '#1565C0',
+              pointHoverRadius: 7,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { intersect: false, mode: 'index' },
+          plugins: {
+            legend: {
+              labels: {
+                color: 'rgba(255,255,255,0.6)',
+                font: { size: 12, weight: '600' },
+                boxWidth: 12,
+                boxHeight: 12,
+                usePointStyle: true,
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(10,22,40,0.95)',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              callbacks: {
+                label: function(ctx) {
+                  var v = ctx.raw;
+                  if (v == null) return null;
+                  return ctx.dataset.label + ': $' + Math.round(v).toLocaleString();
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: 'rgba(255,255,255,0.45)', font: { size: 11 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: 'rgba(255,255,255,0.45)',
+                font: { size: 11 },
+                callback: function(v) {
+                  if (v >= 1000000) return '$' + (v / 1000000).toFixed(1) + 'M';
+                  return '$' + (v / 1000).toFixed(0) + 'K';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ── DOM Comparison Chart ────────────────────────────────
+    var domCtx = document.getElementById('domChart');
+    if (domCtx && DOM_DATA) {
+      Chart.defaults.color = '#546E7A';
+      new Chart(domCtx, {
+        type: 'bar',
+        data: {
+          labels: DOM_DATA.labels,
+          datasets: [{
+            data: DOM_DATA.values,
+            backgroundColor: [
+              '#0A1628',
+              '#90A4AE',
+              '#B0BEC5',
+              '#CFD8DC',
+            ],
+            borderRadius: 6,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  return ctx.raw + ' days avg';
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(0,0,0,0.05)' },
+              ticks: {
+                color: '#78909C',
+                font: { size: 11 },
+                callback: function(v) { return v + ' days'; }
+              }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#37474F', font: { size: 13, weight: '600' } }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  // Initialize charts
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+  } else {
+    initCharts();
+  }
+
+})();
+</script>
+
+</body>
+</html>

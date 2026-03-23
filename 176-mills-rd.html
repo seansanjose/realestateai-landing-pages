@@ -1010,10 +1010,14 @@
       property: '176 N Mills Rd, Ventura, CA 93003'
     };
 
-    fetch('http://localhost:4444/lead', {
+    fetch('https://services.leadconnectorhq.com/contacts/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
+        'Version': '2021-07-28'
+      },
+      body: JSON.stringify(Object.assign({}, payload, { locationId: 'rCKbYi4s8XwBpbFP5cVx' }))
     })
       .then(function (res) {
         if (!res.ok) throw new Error('Submit failed: ' + res.status);

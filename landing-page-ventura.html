@@ -291,7 +291,7 @@ async function submitForm(e) {
     fbq('track', 'Lead', { content_name: 'Home Valuation Request', content_category: 'Seller Lead', value: 20.00, currency: 'USD' });
   }
 
-  var PROXY_URL = 'https://refresh-directly-son-techniques.trycloudflare.com/lead';
+  var GHL_URL = 'https://services.leadconnectorhq.com/contacts/';
   var smsCheckbox = document.getElementById('sms_consent');
 
   var payload = {
@@ -302,21 +302,24 @@ async function submitForm(e) {
     address1: document.getElementById('address').value,
     source: document.getElementById('utm_source').value || 'Landing Page',
     tags: ['facebook-lead','seller-lead','ventura','home-value'],
-    sms_consent: (smsCheckbox && smsCheckbox.checked) ? 'yes' : 'no'
+    sms_consent: (smsCheckbox && smsCheckbox.checked) ? 'yes' : 'no',
+    locationId: 'rCKbYi4s8XwBpbFP5cVx'
   };
 
   try {
-    var resp = await fetch(PROXY_URL, {
+    var resp = await fetch(GHL_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
+        'Version': '2021-07-28'
       },
       body: JSON.stringify(payload)
     });
     var data = await resp.json();
-    console.log('Lead submitted via proxy:', data?.contact?.id || data?.id);
+    console.log('Lead submitted to GHL:', data?.contact?.id || data?.id);
   } catch(err) {
-    console.error('Proxy error:', err);
+    console.error('GHL submit error:', err);
   }
 
   document.getElementById('valuationForm').style.display = 'none';

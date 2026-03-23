@@ -291,7 +291,7 @@ async function submitForm(e) {
     fbq('track', 'Lead', { content_name: 'Home Valuation Request', content_category: 'Seller Lead', value: 20.00, currency: 'USD' });
   }
 
-  var GHL_URL = 'https://reai-proxy.loca.lt/lead';
+  var GHL_URL = 'https://services.leadconnectorhq.com/contacts/';
   var smsCheckbox = document.getElementById('sms_consent');
 
   var payload = {
@@ -301,7 +301,7 @@ async function submitForm(e) {
     phone: document.getElementById('phone').value,
     address1: document.getElementById('address').value,
     source: document.getElementById('utm_source').value || 'Landing Page',
-    tags: ['facebook-lead','seller-lead','ventura','home-value'].concat((document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) ? ['sms-consent-yes'] : ['sms-consent-no']),
+    tags: ['facebook-lead','seller-lead','ventura','home-value'], locationId: 'rCKbYi4s8XwBpbFP5cVx'.concat((document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) ? ['sms-consent-yes'] : ['sms-consent-no']),
     
     
   };
@@ -310,7 +310,7 @@ async function submitForm(e) {
     var resp = await fetch(GHL_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e', 'Version': '2021-07-28',
         
         
       },

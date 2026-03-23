@@ -301,8 +301,8 @@ async function submitForm(e) {
     phone: document.getElementById('phone').value,
     address1: document.getElementById('address').value,
     source: document.getElementById('utm_source').value || 'Landing Page',
-    tags: ['facebook-lead','seller-lead','ventura','home-value'],
-    sms_consent: (smsCheckbox && smsCheckbox.checked) ? 'yes' : 'no',
+    tags: ['facebook-lead','seller-lead','ventura','home-value'].concat((document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) ? ['sms-consent-yes'] : ['sms-consent-no']),
+    
     locationId: 'rCKbYi4s8XwBpbFP5cVx'
   };
 
@@ -318,7 +318,7 @@ async function submitForm(e) {
     });
     var data = await resp.json();
     console.log('Lead submitted to GHL:', data?.contact?.id || data?.id);
-  } catch(err) {
+  } catch(err) {alert('Error submitting - please try again');
     console.error('GHL submit error:', err);
   }
 

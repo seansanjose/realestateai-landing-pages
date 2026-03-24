@@ -301,24 +301,32 @@ async function submitForm(e) {
     phone: document.getElementById('phone').value,
     address1: document.getElementById('address').value,
     source: document.getElementById('utm_source').value || 'Landing Page',
-    tags: ['facebook-lead','seller-lead','ventura','home-value'].concat((document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) ? ['sms-consent-yes'] : ['sms-consent-no']),
-    
+    tags: ['facebook-lead','seller-lead','ventura','home-value']
   };
+  if (document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) {
+    payload.tags.push('sms-consent-yes');
+  }
 
   try {
     var resp = await fetch(GHL_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        
-        
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
     var data = await resp.json();
-    console.log('Lead submitted to GHL:', data?.contact?.id || data?.id);
-  } catch(err) {alert('Error submitting - please try again');
-    console.error('GHL submit error:', err);
+    console.log('Lead submitted:', JSON.stringify(data));
+    if (!data.success && !data.contact) {
+      alert('Submission error: ' + (data.error || data.message || 'Unknown error'));
+      btn.textContent = 'Get My Free Home Value →';
+      btn.disabled = false;
+      return;
+    }
+  } catch(err) {
+    alert('Error: ' + err.message);
+    console.error('Submit error:', err);
+    btn.textContent = 'Get My Free Home Value →';
+    btn.disabled = false;
+    return;
   }
 
   document.getElementById('valuationForm').style.display = 'none';

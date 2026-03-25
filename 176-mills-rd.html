@@ -692,6 +692,41 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
   </div>
 </section>
 
+<!-- TOP LEAD CAPTURE FORM -->
+<section style="background:#fff;padding:28px 20px;border-bottom:1px solid #E2E8F0;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h2 style="font-size:20px;font-weight:800;color:#0A1628;margin-bottom:6px;text-align:center;">Interested? Get details on this home.</h2>
+    <p style="font-size:13px;color:#64748B;text-align:center;margin-bottom:16px;">By submitting, you agree to be contacted about this property.</p>
+    <form id="top-lead-form" novalidate>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <input type="text" id="top-lead-name" name="name" placeholder="Your Name *" required autocomplete="name"
+          style="flex:1;min-width:140px;padding:12px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:15px;font-family:inherit;outline:none;" />
+        <input type="email" id="top-lead-email" name="email" placeholder="Email Address *" required autocomplete="email"
+          style="flex:1;min-width:160px;padding:12px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:15px;font-family:inherit;outline:none;" />
+        <input type="tel" id="top-lead-phone" name="phone" placeholder="Phone Number *" required autocomplete="tel"
+          style="flex:1;min-width:140px;padding:12px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:15px;font-family:inherit;outline:none;" />
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;">
+        <input type="checkbox" id="top-tcpa-consent" name="tcpa_consent"
+          style="width:16px;height:16px;margin-top:3px;flex-shrink:0;" />
+        <label for="top-tcpa-consent" style="font-size:11px;color:#94A3B8;line-height:1.5;cursor:pointer;">
+          I agree to receive text messages and calls about this property. Message and data rates may apply. Reply STOP to opt out.
+          <a href="https://montecitoinsider.com/privacy-policy/" target="_blank" rel="noopener" style="color:#1565C0;">Privacy Policy</a> &amp;
+          <a href="https://montecitoinsider.com/terms/" target="_blank" rel="noopener" style="color:#1565C0;">Terms</a>
+        </label>
+      </div>
+      <div id="top-form-error" style="display:none;color:#DC2626;font-size:13px;margin-bottom:8px;"></div>
+      <button type="submit" id="top-form-submit-btn"
+        style="width:100%;padding:14px;background:#1565C0;color:#fff;font-size:15px;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-family:inherit;">
+        Get Info &rarr;
+      </button>
+    </form>
+    <div id="top-form-success" style="display:none;text-align:center;padding:16px;background:#F0FDF4;border-radius:8px;color:#16A34A;font-weight:600;font-size:15px;">
+      ✅ Got it! Sean will be in touch shortly.
+    </div>
+  </div>
+</section>
+
 <!-- MAP STRIP -->
 <div class="map-strip">
   <img
@@ -793,16 +828,6 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
       </div>
     </div>
   </div>
-<div style="max-width:720px;margin:40px auto;padding:0 20px;text-align:center;">
-  <h3 style="font-family:Inter,sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:24px;">Property Walkthrough</h3>
-  <div style="border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);">
-    <video controls playsinline preload="metadata" poster="mills-photos/001-Twilight.jpg" style="width:100%;display:block;" >
-      <source src="176-mills-walkthrough.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  <p style="font-size:12px;color:#666;text-align:center;margin-top:8px;font-style:italic;">This video is an AI-generated simulation for marketing purposes only. It does not depict the actual property. Sq. footage, room count, and features shown are approximate and may not reflect current conditions. All buyers must verify property details through physical inspection. Sean San Jose, DRE #01884586.</p>
-</div>
 
 </section>
 
@@ -831,9 +856,9 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
         <label for="pre-approved">I am pre-approved for a mortgage</label>
       </div>
       <div class="check-row">
-        <input type="checkbox" id="tcpa-consent" name="tcpa_consent" required />
+        <input type="checkbox" id="tcpa-consent" name="tcpa_consent" />
         <label for="tcpa-consent">
-          I agree to receive text messages and calls about this property. Message and data rates may apply. Reply STOP to opt out.
+          I agree to receive text messages and calls about this property (optional, for SMS updates). Message and data rates may apply. Reply STOP to opt out.
           <a href="https://montecitoinsider.com/privacy-policy/" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;"> Privacy Policy</a> and <a href="https://montecitoinsider.com/terms/" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;">Terms of Service</a>
         </label>
       </div>
@@ -841,7 +866,7 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
       <button type="submit" class="btn btn-blue-solid" id="form-submit-btn">
         Unlock Similar Homes →
       </button>
-      <p style="font-size:11px;color:#999;text-align:center;margin-top:8px;">Consent is not required to purchase goods or services.</p>
+      <p style="font-size:11px;color:#999;text-align:center;margin-top:8px;">By submitting, you agree to be contacted about this property.</p>
       <p class="form-trust">🔒 Your information is private and used only to help you with this home search.</p>
     </form>
     <div class="form-success" id="form-success">
@@ -1004,7 +1029,6 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
     if (!name) { showError('Please enter your name.'); return; }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('Please enter a valid email address.'); return; }
     if (!phone) { showError('Please enter your phone number.'); return; }
-    if (!tcpa) { showError('Please consent to receive communications to continue.'); return; }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
@@ -1048,5 +1072,73 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
   });
 })();
 </script>
+
+<!-- TOP FORM JS -->
+<script>
+(function() {
+  'use strict';
+  var topForm = document.getElementById('top-lead-form');
+  var topSubmitBtn = document.getElementById('top-form-submit-btn');
+  var topFormError = document.getElementById('top-form-error');
+  var topFormSuccess = document.getElementById('top-form-success');
+
+  if (!topForm) return;
+
+  topForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    topFormError.style.display = 'none';
+
+    var name = document.getElementById('top-lead-name').value.trim();
+    var email = document.getElementById('top-lead-email').value.trim();
+    var phone = document.getElementById('top-lead-phone').value.trim();
+    var tcpa = document.getElementById('top-tcpa-consent').checked;
+
+    if (!name) { topFormError.textContent = 'Please enter your name.'; topFormError.style.display = 'block'; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { topFormError.textContent = 'Please enter a valid email.'; topFormError.style.display = 'block'; return; }
+    if (!phone) { topFormError.textContent = 'Please enter your phone number.'; topFormError.style.display = 'block'; return; }
+
+    topSubmitBtn.disabled = true;
+    topSubmitBtn.textContent = 'Submitting…';
+
+    fetch('https://ghl-proxy-production-b817.up.railway.app/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: phone,
+        tcpa_consent: tcpa,
+        tags: ['buyer-lead-176-mills'],
+        source: '176-mills-rd-landing-top',
+        property: '176 N Mills Rd, Ventura, CA 93003'
+      })
+    })
+    .then(function(res) { if (!res.ok) throw new Error(); return res.json().catch(function(){return{}}); })
+    .then(function() {
+      topForm.style.display = 'none';
+      topFormSuccess.style.display = 'block';
+      if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    })
+    .catch(function() {
+      topFormError.textContent = 'Submission error. Call Sean at (805) 206-6363.';
+      topFormError.style.display = 'block';
+      topSubmitBtn.disabled = false;
+      topSubmitBtn.textContent = 'Get Info →';
+    });
+  });
+})();
+</script>
+
+<!-- STICKY MOBILE CTA -->
+<style>
+  @media (max-width: 767px) {
+    .sticky-mobile-cta {
+      display: flex !important;
+    }
+  }
+</style>
+<a href="#lead-form" class="sticky-mobile-cta" style="display:none;position:fixed;bottom:20px;left:16px;right:16px;z-index:9999;background:#D4AF37;color:#0A1628;font-weight:700;font-size:16px;padding:16px 20px;border-radius:12px;text-align:center;text-decoration:none;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.25);">
+  📅 Schedule a Showing
+</a>
 </body>
 </html>

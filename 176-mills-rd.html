@@ -977,7 +977,7 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
   }
 
   function loadComps() {
-    fetch('http://localhost:4444/comps?address=176+N+Mills+Rd,+Ventura,+CA+93003')
+    fetch('https://ghl-proxy-production-b817.up.railway.app/comps?address=176+N+Mills+Rd,+Ventura,+CA+93003')
       .then(function (res) {
         if (!res.ok) throw new Error('Comps fetch failed: ' + res.status);
         return res.json();
@@ -1020,7 +1020,7 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
       property: '176 N Mills Rd, Ventura, CA 93003'
     };
 
-    fetch('http://localhost:4444/lead', {
+    fetch('https://ghl-proxy-production-b817.up.railway.app/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

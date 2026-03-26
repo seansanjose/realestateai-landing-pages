@@ -345,3 +345,29 @@ async function submitForm(e) {
   🏠 Get Your Home Value
 </a>
 
+<!-- Google Places Autocomplete -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXTKIAPNoBKUM3Gf4s9TdU-o77MqETIE&libraries=places"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var addressInput = document.getElementById('address');
+  if (!addressInput) {
+    addressInput = document.querySelector('input[name=address]') || document.querySelector('input[placeholder*=address]') || document.querySelector('input[placeholder*=Address]');
+  }
+  if (addressInput && typeof google !== 'undefined' && google.maps && google.maps.places) {
+    var autocomplete = new google.maps.places.Autocomplete(addressInput, {
+      types: ['address'],
+      componentRestrictions: {country: 'us'}
+    });
+    autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      if (place && place.formatted_address) {
+        addressInput.value = place.formatted_address;
+      }
+    });
+    console.log('Google Places Autocomplete initialized successfully');
+  } else {
+    console.error('Could not initialize autocomplete', {addressInput: !!addressInput, google: typeof google});
+  }
+});
+</script>
+

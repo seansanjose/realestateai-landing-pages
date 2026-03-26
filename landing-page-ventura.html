@@ -345,3 +345,15 @@ async function submitForm(e) {
 <a href="#valuationForm" class="sticky-mobile-cta" style="display:none;position:fixed;bottom:20px;left:16px;right:16px;z-index:9999;background:#D4AF37;color:#0A1628;font-weight:700;font-size:16px;padding:16px 20px;border-radius:12px;text-align:center;text-decoration:none;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.25);">
   🏠 Get Your Home Value
 </a>
+
+<script>
+function initAutocomplete() {
+  var input = document.getElementById('address');
+  if (!input) return;
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ['address'],
+    componentRestrictions: {country: 'us'}
+  });
+}
+</script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXTKIAPNoBKUM3Gf4s9TdU-o77MqETIE&libraries=places&callback=initAutocomplete' async defer></script>

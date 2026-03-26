@@ -272,22 +272,7 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"/></n
   </div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwXTKIAPNoBKUM3Gf4s9TdU-o77MqETIE&libraries=places&callback=initAutocomplete" async defer></script>
-
 <script>
-function initAutocomplete() {
-  var addressInput = document.getElementById('address');
-  var autocomplete = new google.maps.places.Autocomplete(addressInput, {
-    types: ['address'],
-    componentRestrictions: { country: 'us' }
-  });
-  autocomplete.addListener('place_changed', function() {
-    var place = autocomplete.getPlace();
-    if (place && place.formatted_address) {
-      addressInput.value = place.formatted_address;
-    }
-  });
-}
 
 var pageParams = new URLSearchParams(window.location.search);
 (function() {

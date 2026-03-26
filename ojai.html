@@ -297,7 +297,7 @@ async function submitForm(e) {
     fbq('track', 'Lead', { content_name: 'Home Valuation Request', content_category: 'Seller Lead', value: 20.00, currency: 'USD' });
   }
 
-  var PROXY_URL = 'https://mission-control-production-256d.up.railway.app/lead';
+  var PROXY_URL = 'https://mission-control-production-256d.up.railway.app/api/ghl/lead';
   var smsCheckbox = document.getElementById('sms_consent');
 
   var payload = {

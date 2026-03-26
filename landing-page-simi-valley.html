@@ -1,4 +1,4 @@
-<!-- What's Your Ventura Home Really Worth? — Landing Page -->
+<!-- What's Your Simi Valley Home Really Worth? — Landing Page -->
 <!-- Designed by Donald (COO) for Real Estate AI -->
 <!-- Compliance reviewed by Leo | Copy by Sloan's brief -->
 <!-- GHL-connected form | Facebook Pixel 933431189279026 -->
@@ -112,8 +112,8 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"/></n
 
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-badge">🏠 Free Home Valuation — Ventura County</div>
-    <h1>What's Your Ventura Home <span>Really Worth?</span></h1>
+    <div class="hero-badge">🏠 Free Home Valuation — Simi Valley</div>
+    <h1>What's Your Simi Valley Home <span>Really Worth?</span></h1>
     <p>Free, no-obligation home value estimate from a local expert with <strong>144 homes sold</strong> and <strong>16 years</strong> of experience. Hear back within 24 hours.</p>
     <p style="font-size: 14px; opacity: 0.7;">Based on local market data — not just an algorithm. Not a formal appraisal.</p>
   </div>
@@ -127,7 +127,7 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"/></n
     <form id="valuationForm" onsubmit="return submitForm(event)">
       <div class="form-group">
         <label for="address">Property Address *</label>
-        <input type="text" id="address" name="address" placeholder="123 Main St, Ventura, CA 93001" required>
+        <input type="text" id="address" name="address" placeholder="123 Main St, Simi Valley, CA 93065" required>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -199,12 +199,12 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"/></n
 </div>
 
 <div class="trust-section">
-  <h3>Why Homeowners Trust Sean</h3>
+  <h3>Why Simi Valley Homeowners Trust Sean</h3>
   <div class="stats">
-    <div class="stat"><div class="number">144</div><div class="label">Homes Sold</div></div>
-    <div class="stat"><div class="number">16</div><div class="label">Years Experience</div></div>
+    <div class="stat"><div class="number">$720K</div><div class="label">Median Sale Price</div></div>
+    <div class="stat"><div class="number">28-35</div><div class="label">Days on Market — Fastest in County</div></div>
+    <div class="stat"><div class="number">1.2 mo</div><div class="label">Supply — Tightest Inventory</div></div>
     <div class="stat"><div class="number">5.0 ★</div><div class="label">Zillow Rating</div></div>
-    <div class="stat"><div class="number">14</div><div class="label">Areas Served</div></div>
   </div>
 </div>
 
@@ -240,7 +240,7 @@ src="https://www.facebook.com/tr?id=933431189279026&ev=PageView&noscript=1"/></n
   <div class="about-content">
     <h3>Meet Sean San Jose</h3>
     <p>With 16 years of experience and 144 homes sold across Ventura and Santa Barbara counties, Sean brings deep local knowledge and a marketing background to every transaction.</p>
-    <p>Fluent in English and Spanish, Sean serves Ventura and the surrounding communities of Oxnard, Camarillo, Thousand Oaks, Simi Valley, and Moorpark.</p>
+    <p>Fluent in English and Spanish, Sean serves Simi Valley and the surrounding communities of Thousand Oaks, Moorpark, Camarillo, Oxnard, and Ventura.</p>
     <a href="tel:+18052066363" class="about-cta">Call Sean: (805) 206-6363</a>
   </div>
 </div>
@@ -304,7 +304,6 @@ async function submitForm(e) {
   btn.disabled = true;
 
   var GHL_URL = 'https://ghl-proxy-production-b817.up.railway.app/lead';
-  var smsCheckbox = document.getElementById('sms_consent');
 
   var payload = {
     firstName: document.getElementById('firstName').value,
@@ -312,8 +311,8 @@ async function submitForm(e) {
     email: document.getElementById('email').value,
     phone: document.getElementById('phone').value,
     address1: document.getElementById('address').value,
-    source: document.getElementById('utm_source').value || 'Landing Page',
-    tags: ['facebook-lead','seller-lead','ventura','home-value']
+    source: 'simi-valley-landing',
+    tags: ['facebook-lead','seller-lead','simi-valley','home-value']
   };
   if (document.getElementById('sms_consent') && document.getElementById('sms_consent').checked) {
     payload.tags.push('sms-consent-yes');

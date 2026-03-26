@@ -288,7 +288,7 @@ async function submitForm(e) {
   btn.textContent = 'Sending...';
   btn.disabled = true;
 
-  var GHL_URL = 'https://mission-control-production-256d.up.railway.app/api/ghl/lead';
+  var GHL_URL = 'https://services.leadconnectorhq.com/contacts/';
   var smsCheckbox = document.getElementById('sms_consent');
 
   var payload = {
@@ -297,6 +297,7 @@ async function submitForm(e) {
     email: document.getElementById('email').value,
     phone: document.getElementById('phone').value,
     address1: document.getElementById('address').value,
+    locationId: 'rCKbYi4s8XwBpbFP5cVx',
     source: document.getElementById('utm_source').value || 'Landing Page',
     tags: ['facebook-lead','seller-lead','ventura','home-value']
   };
@@ -307,17 +308,23 @@ async function submitForm(e) {
   try {
     var resp = await fetch(GHL_URL, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(payload)
     });
-    var data = await resp.json();
-    console.log('Lead submitted:', JSON.stringify(data));
-    if (!data.success && !data.contact) {
-      alert('Submission error: ' + (data.error || data.message || 'Unknown error'));
+    if (!resp.ok) {
+      var errText = await resp.text().catch(function(){return resp.status;});
+      console.error('GHL error:', resp.status, errText);
+      alert('Submission error (' + resp.status + '). Please call Sean at (805) 206-6363.');
       btn.textContent = 'Get My Free Home Value →';
       btn.disabled = false;
       return;
     }
+    var data = await resp.json();
+    console.log('Lead submitted:', JSON.stringify(data));
     if (typeof fbq === 'function') {
       fbq('track', 'Lead', { content_name: 'Home Valuation Request', content_category: 'Seller Lead', value: 20.00, currency: 'USD' });
     }

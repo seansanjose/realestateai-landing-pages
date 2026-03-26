@@ -1033,20 +1033,24 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
+    var nameParts = name.split(' ');
     var payload = {
-      name: name,
+      firstName: nameParts[0],
+      lastName: nameParts.slice(1).join(' ') || '',
       email: email,
       phone: phone,
-      pre_approved: preApproved,
-      tcpa_consent: tcpa,
+      locationId: 'rCKbYi4s8XwBpbFP5cVx',
       tags: ['buyer-lead-176-mills'],
-      source: '176-mills-rd-landing',
-      property: '176 N Mills Rd, Ventura, CA 93003'
+      source: '176-mills-rd-landing'
     };
 
-    fetch('https://mission-control-production-256d.up.railway.app/api/ghl/lead', {
+    fetch('https://services.leadconnectorhq.com/contacts/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(payload)
     })
       .then(function (res) {
@@ -1100,20 +1104,25 @@ fbq('track', 'ViewContent', {content_name: '176 N Mills Rd Buyer Page', value: 1
     topSubmitBtn.disabled = true;
     topSubmitBtn.textContent = 'Submitting…';
 
-    fetch('https://mission-control-production-256d.up.railway.app/api/ghl/lead', {
+    var topNameParts = name.split(' ');
+    fetch('https://services.leadconnectorhq.com/contacts/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': 'Bearer pit-98bc74a7-3cfb-4047-ad99-3296a2a2f92e',
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
-        name: name,
+        firstName: topNameParts[0],
+        lastName: topNameParts.slice(1).join(' ') || '',
         email: email,
         phone: phone,
-        tcpa_consent: tcpa,
+        locationId: 'rCKbYi4s8XwBpbFP5cVx',
         tags: ['buyer-lead-176-mills'],
-        source: '176-mills-rd-landing-top',
-        property: '176 N Mills Rd, Ventura, CA 93003'
+        source: '176-mills-rd-landing-top'
       })
     })
-    .then(function(res) { if (!res.ok) throw new Error(); return res.json().catch(function(){return{}}); })
+    .then(function(res) { if (!res.ok) throw new Error('Submit failed: ' + res.status); return res.json().catch(function(){return{}}); })
     .then(function() {
       topForm.style.display = 'none';
       topFormSuccess.style.display = 'block';
